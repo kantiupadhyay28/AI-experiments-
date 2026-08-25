@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #06101A;
+  color: #C4D9F0;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes scan-down {
+  0%, 100% { top: 20%; opacity: 0.5; }
+  50% { top: 78%; opacity: 1; }
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+@keyframes dot-beat {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes progress-bar {
+  from { width: 0%; }
+  to   { width: 93%; }
+}
+
+.scan-animate { animation: scan-down 2.4s ease-in-out infinite; }
+.pulse-ring   { animation: pulse-ring 2s ease-in-out infinite; }
+.dot-beat     { animation: dot-beat 1.6s ease-in-out infinite; }
+.slide-up     { animation: slide-up 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+.fade-in      { animation: fade-in 0.3s ease both; }
+.conf-bar     { animation: progress-bar 1.2s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-animate, .pulse-ring, .dot-beat, .slide-up, .fade-in, .conf-bar {
+    animation: none !important;
+  }
+}
