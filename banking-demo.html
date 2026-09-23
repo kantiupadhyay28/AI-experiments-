@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>Aark Bank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -6,118 +11,164 @@
 :root{
   --bg:#0B1526;--bg2:#101C33;--bg3:#19253F;
   --surf:#fff;--surf2:#EEF0FF;--surf3:#F5F6FF;
-  --bd:rgba(255,255,255,.09);--bds:#E2E4F0;
+  --bd:rgba(255,255,255,.09);
   --txt:#fff;--txt2:rgba(255,255,255,.65);--mu:rgba(255,255,255,.35);
   --ts:#111827;--t2s:#4B5563;--ms:#9CA3AF;
   --acc:#4B70FF;--acc2:#3A5AE8;--red:#E31837;
   --ok:#22C55E;--ok-l:rgba(34,197,94,.12);
   --gold:#D97706;--gold-l:rgba(217,119,6,.1);
-  --cam:#07101E;--yel:#F59E0B;--tel:#10B981;--pnk:#EC4899;
+  --cam:#070F1E;--yel:#F59E0B;--tel:#10B981;--pnk:#EC4899;
 }
-body{font-family:'Inter',system-ui,sans-serif;background:#070D1A;color:var(--txt);min-height:100vh;overflow-x:hidden}
+html{height:100%;background:#040A14}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--txt);
+  min-height:100vh;min-height:100dvh;
+  display:flex;justify-content:center;align-items:flex-start;
+  background:#040A14;
+}
+#app{width:100%;max-width:480px;min-height:100vh;min-height:100dvh;background:var(--bg);position:relative}
 button{font-family:inherit;cursor:pointer}
+
 @keyframes scan{0%,100%{top:20%}50%{top:78%}}
 @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
-@keyframes beat{0%,100%{transform:translate(-50%,-50%)scale(1)}50%{transform:translate(-50%,-50%)scale(2.2)}}
-@keyframes sup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes sup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes tok{from{opacity:0;transform:translateY(5px)scale(.85)}to{opacity:1;transform:none}}
-@keyframes ringfill{from{stroke-dasharray:0 220}to{stroke-dasharray:220 220}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(75,112,255,.3)}50%{box-shadow:0 0 0 8px rgba(75,112,255,.05)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.view{display:none}.view.active{display:flex}
-#va{min-height:100vh;align-items:center;justify-content:center;padding:20px;background:#070D1A}
-.ph{width:375px;border-radius:48px;border:5px solid #162035;background:var(--bg);overflow:hidden;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.8);flex-shrink:0}
-.di{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:30px;background:#050B14;border-radius:20px;z-index:30}
-.sb{position:absolute;top:0;left:0;right:0;z-index:20;padding:13px 22px 0;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#fff}
-.pc{padding-top:52px;height:720px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:var(--bg)}
-.pc::-webkit-scrollbar{display:none}
-.asc{display:none!important;animation:sup .22s ease both}.asc.on{display:block!important}
-.nhdr{display:flex;align-items:center;padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
-.nbk{background:rgba(255,255,255,.08);border:none;color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-right:10px;flex-shrink:0}
+
+/* ── Screen visibility ── */
+.asc{display:none!important}
+.asc.on{display:block!important}
+
+/* ── Header ── */
+.nhdr{display:flex;align-items:center;padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:20}
+.nbk{background:rgba(255,255,255,.08);border:none;color:#fff;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0}
+
+/* ── Buttons ── */
 .bacc{display:block;width:100%;padding:15px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;text-align:center}
 .bacc:hover{background:var(--acc2)}
-.kpad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.kb{height:52px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid var(--bd);font-size:20px;font-weight:600;color:var(--txt)}
+
+/* ── Keypad ── */
+.kpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kb{height:56px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid var(--bd);font-size:20px;font-weight:600;color:var(--txt)}
 .kb:active{background:rgba(75,112,255,.25)}
 .kb.del{font-size:18px;color:var(--txt2)}
 .kb.gh{opacity:0;pointer-events:none;background:transparent;border-color:transparent}
-.tog{display:flex;border-radius:8px;border:1px solid var(--bd);overflow:hidden;background:rgba(255,255,255,.04)}
-.tb{flex:1;padding:9px 0;font-size:12px;font-weight:600;background:transparent;color:var(--mu);border:none}
+
+/* ── Toggle ── */
+.tog{display:flex;border-radius:10px;border:1px solid var(--bd);overflow:hidden;background:rgba(255,255,255,.04)}
+.tb{flex:1;padding:10px 0;font-size:13px;font-weight:600;background:transparent;color:var(--mu);border:none}
 .tb.ak,.tb.ap{background:var(--acc);color:#fff}
 .tb.as{background:var(--gold);color:#fff}
-.vf{border-radius:12px;background:var(--cam);position:relative;overflow:hidden;height:160px;border:1px solid var(--bd);margin-bottom:10px}
-.vf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);border-radius:11px;z-index:1}
-.vf canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;border-radius:11px}
-.vf-sq{border-radius:16px;background:var(--cam);position:relative;overflow:hidden;aspect-ratio:1/1;border:1px solid var(--bd);margin:0 18px 14px}
-.vf-sq video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);border-radius:15px;z-index:1}
-.vf-sq canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;border-radius:15px}
-.vfcam{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:5;background:rgba(7,16,30,.82);backdrop-filter:blur(2px)}
+
+/* ── Camera (normal — transfer/PIN) ── */
+.vf{background:var(--cam);position:relative;overflow:hidden;height:260px;border:1px solid var(--bd);border-radius:16px;margin-bottom:12px}
+.vf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);z-index:1}
+.vf canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+
+/* ── Camera (large — auth screen, full-width) ── */
+.vf-auth{background:var(--cam);position:relative;overflow:hidden;width:100%;aspect-ratio:4/3;max-height:55dvh}
+.vf-auth video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);z-index:1}
+.vf-auth canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+
+/* ── Camera overlay (before permission) ── */
+.vfcam{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:5;background:rgba(7,16,30,.92);backdrop-filter:blur(6px)}
+
+/* ── Hold ring ── */
+.hold-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:4}
+
+/* ── Progress bar ── */
 .cbt{height:5px;border-radius:3px;background:rgba(255,255,255,.1)}
 .cbf{height:100%;border-radius:3px;width:0;transition:width .1s linear,background .4s}
-.sl{background:rgba(0,0,0,.5);border-radius:10px;padding:10px 12px;margin-bottom:10px;min-height:56px;border:1px solid var(--bd)}
+
+/* ── Gesture detection panel ── */
+.det-panel{display:none;background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:10px;align-items:center;gap:12px}
+.det-panel.on{display:flex}
+.det-emoji{font-size:40px;line-height:1;flex-shrink:0}
+
+/* ── Sign log ── */
+.sl{background:rgba(0,0,0,.4);border-radius:12px;padding:12px;margin-bottom:10px;min-height:56px;border:1px solid var(--bd)}
 .sl-l{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px;display:flex;justify-content:space-between}
-.sl-c{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:26px}
+.sl-c{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:30px}
 .stk{display:flex;flex-direction:column;align-items:center;gap:2px;animation:tok .25s ease both}
-.bnav{background:var(--surf);border-top:1px solid #E2E4F0;display:flex;padding:8px 0 6px}
+
+/* ── Bottom nav ── */
+.bnav{background:var(--surf);border-top:1px solid #E2E4F0;display:flex;padding:8px 0 calc(env(safe-area-inset-bottom,0px) + 6px)}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;padding:4px 0}
 .bi-i{font-size:18px;line-height:1}
 .bi-l{font-size:9px;font-weight:600;color:var(--ms)}
 .bi.act .bi-l{color:var(--acc)}
-.det-panel{display:none;background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin-bottom:8px;align-items:center;gap:12px}
-.det-panel.on{display:flex}
-.det-emoji{font-size:36px;line-height:1;flex-shrink:0}
-.hold-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3}
-</style>
 
-<div id="va" class="view active">
-<div class="ph">
-<div class="di"></div>
-<div class="sb"><span>12:30</span><span>●●● ▌▌ ▊</span></div>
-<div class="pc">
+/* ── Sign AI badge ── */
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(217,119,6,.15);border:1px solid rgba(217,119,6,.3);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;color:#FBBF24}
+</style>
+</head>
+<body>
+<div id="app">
 
 <!-- ══ LOGIN ══ -->
-<div id="s-login" class="asc on" style="min-height:668px;display:flex;flex-direction:column">
-  <div style="padding:16px 18px 0;display:flex;align-items:center;justify-content:space-between">
+<div id="s-login" class="asc on" style="min-height:100dvh;display:flex;flex-direction:column">
+  <!-- App header -->
+  <div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border-bottom:1px solid var(--bd)">
     <div style="display:inline-flex;align-items:center;gap:6px;background:#E31837;border-radius:6px;padding:6px 10px 6px 7px">
       <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="1" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
       <span style="font-size:12px;font-weight:800;color:#fff;letter-spacing:.06em">HDFC BANK</span>
     </div>
-    <span style="font-size:10px;color:var(--mu)">Demo</span>
+    <span style="font-size:10px;color:var(--mu)">Inclusive Banking</span>
   </div>
-  <div style="padding:18px 18px 0">
+
+  <!-- User greeting -->
+  <div style="padding:22px 18px 0">
     <div style="font-size:14px;color:var(--txt2);margin-bottom:2px">Hello,</div>
-    <div style="font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:14px">Riya Sharma</div>
+    <div style="font-size:28px;font-weight:800;letter-spacing:-.4px;margin-bottom:14px">Riya Sharma</div>
     <div style="display:flex;justify-content:space-between;align-items:center">
       <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--txt2)">Cust ID •••• 4568<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"/></svg></div>
       <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--txt2)">View balance<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="rgba(255,255,255,.45)" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="rgba(255,255,255,.45)" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/></svg></div>
     </div>
   </div>
-  <div style="margin:18px 0 0;padding:22px 18px 38px;background:var(--bg2);border-radius:0 0 50% 50%/0 0 60px 60px;display:flex;flex-direction:column;align-items:center;position:relative">
-    <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:180px;height:30px;background:rgba(75,112,255,.1);border-radius:50%;filter:blur(18px)"></div>
-    <div style="width:74px;height:74px;border-radius:50%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin-bottom:8px;box-shadow:0 0 0 10px rgba(75,112,255,.07)">
+
+  <!-- QR hero -->
+  <div style="margin:20px 0 0;padding:24px 18px 32px;background:var(--bg2);display:flex;flex-direction:column;align-items:center;position:relative">
+    <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:200px;height:32px;background:rgba(75,112,255,.1);border-radius:50%;filter:blur(20px)"></div>
+    <div style="width:76px;height:76px;border-radius:50%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin-bottom:8px;animation:glow 3s ease-in-out infinite">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><rect x="19" y="4" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><rect x="4" y="19" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="19" y1="19" x2="28" y2="19" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="23.5" y1="19" x2="23.5" y2="28" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="19" y1="23.5" x2="19" y2="28" stroke="rgba(160,140,255,.85)" stroke-width="2"/></svg>
     </div>
     <div style="font-size:11px;color:var(--txt2)">Scan & pay</div>
   </div>
-  <div style="display:flex;justify-content:space-around;padding:18px 28px;background:var(--bg3)">
+
+  <!-- Quick actions -->
+  <div style="display:flex;justify-content:space-around;padding:20px 28px;background:var(--bg3);border-bottom:1px solid var(--bd)">
     <div onclick="go('transfer')" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer">
-      <div style="width:50px;height:50px;border-radius:50%;background:var(--yel);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.3)">₹</div>
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--yel);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.3)">₹</div>
       <span style="font-size:11px;color:var(--txt2)">Send</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-      <div style="width:50px;height:50px;border-radius:14px;background:var(--tel);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(16,185,129,.25)">🧾</div>
+      <div style="width:52px;height:52px;border-radius:16px;background:var(--tel);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(16,185,129,.25)">🧾</div>
       <span style="font-size:11px;color:var(--txt2)">Pay bills</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative">
-      <div style="width:50px;height:50px;border-radius:50%;background:var(--pnk);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;box-shadow:0 4px 14px rgba(236,72,153,.25)">✓</div>
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--pnk);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;box-shadow:0 4px 14px rgba(236,72,153,.25)">✓</div>
       <div style="position:absolute;top:-2px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--bg3)"></div>
       <span style="font-size:11px;color:var(--txt2)">Apply</span>
     </div>
   </div>
-  <div style="padding:16px 18px;flex:1;display:flex;flex-direction:column;gap:10px">
-    <button onclick="chooseAuth('passkey')" class="bacc" style="display:flex;align-items:center;justify-content:center;gap:10px">Login with Touch ID<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9.5" rx="3.5" ry="4.5" stroke="#fff" stroke-width="1.8"/><path d="M6.5 9.5C6.5 6.5 9 4 12 4s5.5 2.5 5.5 5.5c0 3.5-1.2 6-3.5 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 11c.5-4 3.5-7 7.5-7s7 3 7.5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9 9.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 3.2-1.2 5.5-3 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-    <button onclick="chooseAuth('sign-auth')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;background:rgba(217,119,6,.1);color:#F59E0B;font-size:14px;font-weight:600;border:1.5px solid rgba(217,119,6,.3)">🤟 Or, Login with Sign Language</button>
+
+  <!-- Auth methods -->
+  <div style="padding:20px 18px;flex:1;display:flex;flex-direction:column;gap:10px">
+    <button onclick="chooseAuth('passkey')" class="bacc" style="display:flex;align-items:center;justify-content:center;gap:10px">
+      Login with Touch ID
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9.5" rx="3.5" ry="4.5" stroke="#fff" stroke-width="1.8"/><path d="M6.5 9.5C6.5 6.5 9 4 12 4s5.5 2.5 5.5 5.5c0 3.5-1.2 6-3.5 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 11c.5-4 3.5-7 7.5-7s7 3 7.5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9 9.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 3.2-1.2 5.5-3 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Sign language login — prominent -->
+    <button onclick="chooseAuth('sign-auth')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:12px;background:rgba(217,119,6,.1);color:#F59E0B;font-size:14px;font-weight:700;border:1.5px solid rgba(217,119,6,.3)">
+      🤟 Login with Sign Language
+      <span style="font-size:9px;font-weight:700;background:rgba(217,119,6,.25);border-radius:10px;padding:2px 7px;color:#FBBF24">AI Camera</span>
+    </button>
+
     <button onclick="chooseAuth('face')" style="background:none;border:none;color:var(--txt2);font-size:13px;padding:4px;width:100%;text-align:center">Or, Login with Face ID &nbsp;👤</button>
+
     <div style="text-align:center">
       <div style="font-size:12px;color:var(--mu);margin-bottom:8px">Or, Enter 4 digit mPIN</div>
       <div style="display:flex;justify-content:center;gap:10px">
@@ -125,7 +176,8 @@ button{font-family:inherit;cursor:pointer}
       </div>
     </div>
   </div>
-  <div style="border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:10px 0">
+
+  <div style="border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:12px 0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)">
     <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">👤</span><span style="font-size:10px;color:var(--mu)">Open A/C</span></button>
     <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">💬</span><span style="font-size:10px;color:var(--mu)">Reach Us</span></button>
     <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">⋯</span><span style="font-size:10px;color:var(--mu)">More</span></button>
@@ -133,9 +185,9 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ PASSKEY ══ -->
-<div id="s-passkey" class="asc" style="min-height:668px;background:var(--bg)">
+<div id="s-passkey" class="asc" style="min-height:100dvh;background:var(--bg)">
   <div class="nhdr"><button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Touch ID Authentication</div><div style="font-size:11px;color:var(--mu)">Verifying your identity</div></div></div>
-  <div style="padding:40px 22px;text-align:center">
+  <div style="padding:48px 22px;text-align:center">
     <div style="position:relative;width:120px;height:120px;margin:0 auto 28px"><svg width="120" height="120" viewBox="0 0 120 120" style="transform:rotate(-90deg)"><circle cx="60" cy="60" r="40" fill="none" stroke="var(--bd)" stroke-width="6"/><circle id="pk-ring" cx="60" cy="60" r="40" fill="none" stroke="var(--acc)" stroke-width="6" stroke-dasharray="0 251" stroke-linecap="round" style="transition:stroke-dasharray .1s"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:38px">🔑</div></div>
     <div style="font-size:16px;font-weight:700;margin-bottom:6px">Signing you in…</div>
     <div id="pk-lbl" style="font-size:13px;color:var(--mu);margin-bottom:36px">Authenticating… 0%</div>
@@ -145,10 +197,10 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ FACE ══ -->
-<div id="s-face" class="asc" style="min-height:668px;background:var(--bg)">
+<div id="s-face" class="asc" style="min-height:100dvh;background:var(--bg)">
   <div class="nhdr"><button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Face ID</div><div style="font-size:11px;color:var(--mu)">Hold steady · look at camera</div></div></div>
   <div style="padding:18px">
-    <div class="vf-sq">
+    <div style="background:var(--cam);position:relative;overflow:hidden;aspect-ratio:1;width:100%;max-width:360px;margin:0 auto 16px;border:1px solid var(--bd);border-radius:20px">
       <div id="face-oval" style="position:absolute;top:44%;left:50%;transform:translate(-50%,-54%);width:150px;height:188px;border-radius:50%;border:3px solid var(--acc);box-shadow:0 0 28px rgba(75,112,255,.25);animation:pulse 2s ease-in-out infinite;z-index:3"></div>
       <div id="face-scan" style="position:absolute;left:18%;right:18%;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:.7;animation:scan 2.5s ease-in-out infinite;z-index:3"></div>
       <div id="face-live" style="display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--acc);font-weight:700;z-index:5">Liveness: Blink detected ✓</div>
@@ -160,82 +212,161 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ SIGN AUTH ══ -->
-<div id="s-sign-auth" class="asc" style="min-height:668px;background:var(--bg)">
-  <div class="nhdr"><button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Sign Language Login</div><div style="font-size:11px;color:var(--mu)">Show your registered greeting sign</div></div></div>
-  <div style="padding:18px">
-    <!-- Camera viewfinder -->
-    <div class="vf-sq">
-      <video id="sa-vid" autoplay muted playsinline></video>
-      <canvas id="sa-canvas"></canvas>
-      <div id="sa-cam" class="vfcam">
-        <span style="font-size:26px">🤟</span>
-        <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.8)">Sign Language Login</span>
-        <span style="font-size:10px;color:var(--mu);text-align:center;padding:0 18px">Allow camera to use gesture recognition</span>
-      </div>
-      <!-- Hold progress ring overlay -->
-      <svg id="sa-ring-svg" class="hold-ring" style="display:none" width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="34" fill="rgba(0,0,0,.5)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-        <circle id="sa-ring" cx="40" cy="40" r="34" fill="none" stroke="#FBBF24" stroke-width="4" stroke-dasharray="0 214" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:40px 40px;transition:stroke-dasharray .1s linear"/>
-        <text id="sa-ring-txt" x="40" y="46" text-anchor="middle" font-size="16" font-weight="800" fill="#fff"></text>
-      </svg>
-      <div id="sa-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.12);align-items:center;justify-content:center;font-size:56px;z-index:6">✅</div>
+<div id="s-sign-auth" class="asc" style="min-height:100dvh;background:var(--bg)">
+  <!-- Header -->
+  <div class="nhdr">
+    <button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div style="flex:1">
+      <div style="font-size:15px;font-weight:700">Sign Language Login</div>
+      <div style="font-size:11px;color:var(--mu)">Show your registered greeting sign</div>
     </div>
-    <!-- Detection status -->
+    <span class="ai-badge">🤟 MediaPipe AI</span>
+  </div>
+
+  <!-- Large camera view — full width, 4:3 -->
+  <div class="vf-auth">
+    <video id="sa-vid" autoplay muted playsinline></video>
+    <canvas id="sa-canvas"></canvas>
+    <div id="sa-cam" class="vfcam">
+      <div style="font-size:52px;margin-bottom:4px">🤟</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">Sign Language Login</div>
+      <div style="font-size:11px;color:var(--mu);text-align:center;padding:0 32px;line-height:1.5">Show your hand in camera to authenticate with gesture recognition</div>
+      <div style="margin-top:12px;font-size:10px;color:rgba(255,255,255,.25)">Powered by Google MediaPipe</div>
+    </div>
+    <!-- Hold ring - larger for auth -->
+    <svg id="sa-ring-svg" class="hold-ring" style="display:none" width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="rgba(0,0,0,.5)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
+      <circle id="sa-ring" cx="50" cy="50" r="42" fill="none" stroke="#FBBF24" stroke-width="5" stroke-dasharray="0 264" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:50px 50px;transition:stroke-dasharray .1s linear"/>
+      <text id="sa-ring-txt" x="50" y="58" text-anchor="middle" font-size="20" font-weight="800" fill="#fff"></text>
+    </svg>
+    <!-- Auth success overlay -->
+    <div id="sa-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.15);align-items:center;justify-content:center;font-size:80px;z-index:6">✅</div>
+  </div>
+
+  <!-- Gesture detection panel + controls -->
+  <div style="padding:14px 18px">
     <div id="sa-det" class="det-panel" style="background:rgba(217,119,6,.08);border-color:rgba(217,119,6,.2)">
-      <div id="sa-emoji" class="det-emoji">🤟</div>
+      <div id="sa-emoji" class="det-emoji" style="font-size:44px">🤟</div>
       <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-          <span id="sa-lbl" style="font-size:12px;font-weight:700;color:#FBBF24">Detecting sign…</span>
-          <span id="sa-hold-lbl" style="font-size:10px;color:var(--gold)"></span>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span id="sa-lbl" style="font-size:13px;font-weight:700;color:#FBBF24">Detecting sign…</span>
+          <span id="sa-hold-lbl" style="font-size:11px;color:var(--gold)"></span>
         </div>
-        <div class="cbt"><div id="sa-hold" class="cbf" style="background:var(--gold)"></div></div>
+        <div class="cbt" style="height:6px"><div id="sa-hold" class="cbf" style="background:var(--gold);height:6px"></div></div>
+        <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:5px">Hold for 2 seconds to log in</div>
       </div>
     </div>
-    <!-- Confidence bar (static) -->
+
+    <!-- Confidence -->
     <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)">Recognition confidence</span><span id="sa-pct" style="font-size:11px;color:var(--gold);font-weight:700">—</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)">Recognition confidence</span>
+        <span id="sa-pct" style="font-size:11px;color:var(--gold);font-weight:700">—</span>
+      </div>
       <div class="cbt"><div id="sa-fill" class="cbf" style="background:var(--gold)"></div></div>
       <div id="sa-hint" style="font-size:11px;color:var(--mu);margin-top:8px">Show any hand sign · hold 2s to authenticate</div>
     </div>
+
     <div style="display:flex;gap:10px">
-      <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">Try again</button>
+      <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">← Back</button>
       <button onclick="go('home')" class="bacc" style="flex:1">Skip →</button>
     </div>
   </div>
 </div>
 
 <!-- ══ HOME ══ -->
-<div id="s-home" class="asc" style="min-height:668px;display:flex;flex-direction:column;background:var(--bg)">
-  <div style="padding:10px 18px;display:flex;align-items:center;justify-content:space-between">
-    <div style="position:relative"><div style="width:38px;height:38px;border-radius:50%;border:2.5px solid #fff;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">RS</div><div style="position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:7px">💬</div></div>
+<div id="s-home" class="asc" style="min-height:100dvh;display:flex;flex-direction:column;background:var(--bg)">
+  <div style="padding:12px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border-bottom:1px solid var(--bd)">
+    <div style="position:relative"><div style="width:38px;height:38px;border-radius:50%;border:2.5px solid #fff;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">RS</div><div style="position:absolute;bottom:-1px;right:-1px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:2px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-size:7px">💬</div></div>
+    <div style="font-size:15px;font-weight:700;color:var(--txt)">Aark Bank</div>
     <div style="display:flex;gap:8px">
-      <div style="width:34px;height:34px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(#EC4899 0%,#8B5CF6 40%,#3B82F6 70%,#EC4899 100%);padding:2px"><div style="width:100%;height:100%;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:14px">📷</div></div></div>
       <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:15px">🔍</div>
       <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:15px">⏻</div>
     </div>
   </div>
-  <div style="padding:4px 18px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt2)">Savings A/c: 12341234124870<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/></svg></div><button style="font-size:11.5px;color:var(--acc);background:none;border:none;font-weight:600">Manage A/c</button></div>
-  <div style="padding:20px 18px 6px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="font-size:28px;font-weight:800;letter-spacing:-.5px">View Balance</div><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="rgba(255,255,255,.4)" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="rgba(255,255,255,.4)" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"/></svg></div><button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:500;text-decoration:underline;padding:0">View statement</button></div>
-  <div style="padding:10px 18px"><div style="display:flex;border:1px solid var(--bd);border-radius:30px;overflow:hidden"><button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;display:flex;align-items:center;justify-content:center;gap:4px">💳 Cards</button><button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;border-left:1px solid var(--bd);border-right:1px solid var(--bd);display:flex;align-items:center;justify-content:center;gap:4px">📈 Deposits</button><button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;display:flex;align-items:center;justify-content:center;gap:4px;position:relative">📦 Loans<div style="position:absolute;top:6px;right:18px;width:6px;height:6px;border-radius:50%;background:var(--red)"></div></button></div></div>
-  <div style="text-align:center;padding:4px 0 10px;font-size:11px;color:var(--mu);display:flex;align-items:center;justify-content:center;gap:4px">Swipe down to view summary<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+  <div style="padding:4px 18px;background:var(--bg2);border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;padding-top:8px">
+    <div style="display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt2)">Savings A/c: 12341234124870<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <button style="font-size:11.5px;color:var(--acc);background:none;border:none;font-weight:600">Manage A/c</button>
+  </div>
+
+  <div style="padding:20px 18px 6px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <div style="font-size:28px;font-weight:800;letter-spacing:-.5px">View Balance</div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="rgba(255,255,255,.4)" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="rgba(255,255,255,.4)" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:500;text-decoration:underline;padding:0">View statement</button>
+  </div>
+
+  <div style="padding:10px 18px">
+    <div style="display:flex;border:1px solid var(--bd);border-radius:30px;overflow:hidden">
+      <button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;display:flex;align-items:center;justify-content:center;gap:4px">💳 Cards</button>
+      <button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;border-left:1px solid var(--bd);border-right:1px solid var(--bd);display:flex;align-items:center;justify-content:center;gap:4px">📈 Deposits</button>
+      <button style="flex:1;padding:8px 0;font-size:11.5px;font-weight:600;color:var(--txt2);background:none;border:none;display:flex;align-items:center;justify-content:center;gap:4px;position:relative">📦 Loans<div style="position:absolute;top:6px;right:18px;width:6px;height:6px;border-radius:50%;background:var(--red)"></div></button>
+    </div>
+  </div>
+
   <div style="flex:1;background:var(--surf);border-radius:22px 22px 0 0;padding:0;overflow:hidden">
     <div style="display:flex;justify-content:center;padding:10px 0 0"><div style="width:36px;height:4px;border-radius:2px;background:#DDE1EF"></div></div>
     <div style="padding:12px 18px 6px;font-size:17px;font-weight:700;color:var(--ts)">Payment Center</div>
-    <div style="margin:0 18px 10px;background:#FFF8E7;border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">🤟</span><div style="font-size:11px;color:#92400E;line-height:1.4"><strong>Sign Language</strong> input · use your camera to enter amounts and PIN by gesture</div></div>
-    <div style="margin:0 18px 10px;background:var(--surf3);border:1px solid #E2E4F5;border-radius:12px;padding:14px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:14px;font-weight:700;color:var(--ts)">Send Money</div><div style="font-size:11px;color:var(--ms);line-height:1.4;margin-top:2px">via NEFT, IMPS, RTGS, UPI, &amp;<br>within HDFC Bank</div></div><button onclick="go('transfer')" style="border:1.5px solid var(--acc);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--acc);background:transparent;white-space:nowrap">+ New payee</button></div><div onclick="go('transfer')" style="background:#fff;border:1.5px solid #DDE1F0;border-radius:8px;padding:11px 14px;font-size:12px;color:#9CA3AF;cursor:pointer">Enter UPI ID / mobile no. / account no. / name</div></div>
-    <div style="margin:0 18px 12px;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surf3);border:1px solid #E2E4F5;border-radius:8px"><div style="font-size:11.5px;color:var(--t2s);line-height:1.4">Your daily Money Transfer<br>limit is set at <strong style="color:var(--ts)">₹10,000</strong>.</div><button style="font-size:12px;font-weight:600;color:var(--acc);background:none;border:none;white-space:nowrap">Manage Limits</button></div>
-    <div style="margin:0 18px;display:flex;gap:8px"><button onclick="go('transfer')" style="flex:1;padding:12px;border-radius:10px;background:var(--acc);color:#fff;font-size:13px;font-weight:600;border:none;display:flex;align-items:center;justify-content:center;gap:5px">↗ Send Money</button><button onclick="go('transfer')" style="padding:12px 14px;border-radius:10px;background:rgba(217,119,6,.08);color:#D97706;font-size:13px;font-weight:700;border:1.5px solid rgba(217,119,6,.25);">🤟 Sign</button></div>
+    <div style="margin:0 18px 10px;background:#FFF8E7;border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:18px">🤟</span>
+      <div style="font-size:11px;color:#92400E;line-height:1.4"><strong>Sign Language</strong> input — use camera gesture recognition for amounts and PIN. Toggle in transfer screen.</div>
+    </div>
+    <div style="margin:0 18px 10px;background:var(--surf3);border:1px solid #E2E4F5;border-radius:12px;padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div><div style="font-size:14px;font-weight:700;color:var(--ts)">Send Money</div><div style="font-size:11px;color:var(--ms);line-height:1.4;margin-top:2px">via NEFT, IMPS, RTGS, UPI, &amp;<br>within HDFC Bank</div></div>
+        <button onclick="go('transfer')" style="border:1.5px solid var(--acc);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--acc);background:transparent;white-space:nowrap">+ New payee</button>
+      </div>
+      <div onclick="go('transfer')" style="background:#fff;border:1.5px solid #DDE1F0;border-radius:8px;padding:11px 14px;font-size:12px;color:#9CA3AF;cursor:pointer">Enter UPI ID / mobile no. / account no. / name</div>
+    </div>
+    <div style="margin:0 18px 12px;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surf3);border:1px solid #E2E4F5;border-radius:8px">
+      <div style="font-size:11.5px;color:var(--t2s);line-height:1.4">Daily Money Transfer limit: <strong style="color:var(--ts)">₹10,000</strong></div>
+      <button style="font-size:12px;font-weight:600;color:var(--acc);background:none;border:none;white-space:nowrap">Manage</button>
+    </div>
+    <div style="margin:0 18px;display:flex;gap:8px">
+      <button onclick="go('transfer')" style="flex:1;padding:12px;border-radius:10px;background:var(--acc);color:#fff;font-size:13px;font-weight:600;border:none;display:flex;align-items:center;justify-content:center;gap:5px">↗ Send Money</button>
+      <button onclick="go('transfer');setTimeout(()=>setTrMode(true),200)" style="padding:12px 14px;border-radius:10px;background:rgba(217,119,6,.08);color:#D97706;font-size:13px;font-weight:700;border:1.5px solid rgba(217,119,6,.25);">🤟 Sign</button>
+    </div>
   </div>
-  <div class="bnav"><button class="bi act"><div class="bi-i">🏠</div><div class="bi-l" style="color:var(--acc)">Home</div></button><button class="bi"><div class="bi-i">📄</div><div class="bi-l">Bills</div></button><button class="bi" onclick="go('transfer')"><div class="bi-i">💰</div><div class="bi-l">Deposits</div></button><button class="bi"><div class="bi-i">💳</div><div class="bi-l">Cards</div></button><button class="bi"><div class="bi-i">💬</div><div class="bi-l">Care</div></button></div>
+
+  <div class="bnav">
+    <button class="bi act"><div class="bi-i">🏠</div><div class="bi-l" style="color:var(--acc)">Home</div></button>
+    <button class="bi"><div class="bi-i">📄</div><div class="bi-l">Bills</div></button>
+    <button class="bi" onclick="go('transfer')"><div class="bi-i">💰</div><div class="bi-l">Deposits</div></button>
+    <button class="bi"><div class="bi-i">💳</div><div class="bi-l">Cards</div></button>
+    <button class="bi"><div class="bi-i">💬</div><div class="bi-l">Care</div></button>
+  </div>
 </div>
 
 <!-- ══ TRANSFER ══ -->
-<div id="s-transfer" class="asc" style="min-height:668px;background:var(--bg)">
-  <div class="nhdr"><button class="nbk" onclick="go('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Send Money</div><div style="font-size:11px;color:var(--mu)">UPI / Bank Transfer</div></div></div>
-  <div style="padding:14px 18px 0">
-    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">AK</div><div style="flex:1"><div style="font-size:14px;font-weight:600">Amit Kumar</div><div style="font-size:11.5px;color:var(--mu)">HDFC Bank · •••• 9201 · @amitk</div></div><div style="background:var(--ok-l);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--ok)">Verified</div></div>
-    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:12px"><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">Enter Amount</div><div id="tr-amt" style="font-size:32px;font-weight:800;color:var(--mu);letter-spacing:-1px">₹ 0<span style="opacity:.25">|</span></div></div>
-    <div class="tog" style="margin-bottom:12px"><button id="tr-tk" class="tb ak" onclick="setTrMode(false)">⌨️ Keypad</button><button id="tr-ts" class="tb" onclick="setTrMode(true)">🤟 Sign Input</button></div>
+<div id="s-transfer" class="asc" style="min-height:100dvh;background:var(--bg)">
+  <div class="nhdr">
+    <button class="nbk" onclick="go('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div style="flex:1"><div style="font-size:15px;font-weight:700">Send Money</div><div style="font-size:11px;color:var(--mu)">UPI / Bank Transfer</div></div>
+    <span id="tr-mode-badge" style="display:none" class="ai-badge">🤟 Sign Mode</span>
+  </div>
+
+  <div style="padding:14px 18px 20px">
+    <!-- Recipient -->
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">AK</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:600">Amit Kumar</div><div style="font-size:11.5px;color:var(--mu)">HDFC Bank · •••• 9201 · @amitk</div></div>
+      <div style="background:var(--ok-l);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--ok)">Verified</div>
+    </div>
+
+    <!-- Amount display -->
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">Enter Amount</div>
+      <div id="tr-amt" style="font-size:36px;font-weight:800;color:var(--mu);letter-spacing:-1px">₹ 0<span style="opacity:.25">|</span></div>
+    </div>
+
+    <!-- Input mode toggle -->
+    <div class="tog" style="margin-bottom:14px">
+      <button id="tr-tk" class="tb ak" onclick="setTrMode(false)">⌨️ Keypad</button>
+      <button id="tr-ts" class="tb" onclick="setTrMode(true)">🤟 Sign Language</button>
+    </div>
+
     <!-- Keypad -->
     <div id="tr-kpad">
       <div class="kpad" style="margin-bottom:14px">
@@ -245,54 +376,83 @@ button{font-family:inherit;cursor:pointer}
         <button class="kb gh"></button><button class="kb" onclick="pTr('0')">0</button><button class="kb del" onclick="pTr('⌫')">⌫</button>
       </div>
     </div>
-    <!-- Sign input -->
+
+    <!-- Sign language camera input -->
     <div id="tr-sign" style="display:none;margin-bottom:14px">
+      <!-- Camera view -->
       <div class="vf">
         <video id="tr-vid" autoplay muted playsinline></video>
         <canvas id="tr-canvas"></canvas>
-        <div id="tr-cam" class="vfcam"><span style="font-size:24px">📷</span><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);text-align:center;padding:0 16px">Loading gesture model…<br><span style="font-size:10px;color:var(--mu)">Allow camera access when prompted</span></span></div>
+        <div id="tr-cam" class="vfcam">
+          <span style="font-size:36px">🤟</span>
+          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.8)">Sign Language Input</span>
+          <span style="font-size:11px;color:var(--mu);text-align:center;padding:0 20px">Allow camera access to enter amounts via hand gestures</span>
+          <span style="font-size:10px;color:rgba(255,255,255,.2);margin-top:6px">Powered by Google MediaPipe</span>
+        </div>
         <!-- Hold ring -->
-        <svg id="tr-ring-svg" class="hold-ring" style="display:none" width="72" height="72" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r="29" fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-          <circle id="tr-ring" cx="36" cy="36" r="29" fill="none" stroke="#FBBF24" stroke-width="4" stroke-dasharray="0 182" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:36px 36px;transition:stroke-dasharray .1s linear"/>
-          <text id="tr-ring-txt" x="36" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"></text>
+        <svg id="tr-ring-svg" class="hold-ring" style="display:none" width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="33" fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
+          <circle id="tr-ring" cx="40" cy="40" r="33" fill="none" stroke="#FBBF24" stroke-width="4" stroke-dasharray="0 207" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:40px 40px;transition:stroke-dasharray .1s linear"/>
+          <text id="tr-ring-txt" x="40" y="47" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"></text>
         </svg>
       </div>
-      <!-- Signed input log -->
-      <div class="sl">
-        <div class="sl-l"><span>Signed input · live text</span><button onclick="clrTrLog()" style="font-size:9px;color:rgba(255,255,255,.3);background:none;border:none">Clear</button></div>
-        <div id="tr-log" class="sl-c"><span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gesture emoji appear here as you sign</span></div>
-      </div>
-      <!-- Detection status panel -->
+
+      <!-- Detected gesture -->
       <div id="tr-det" class="det-panel">
         <div id="tr-emoji" class="det-emoji">—</div>
         <div style="flex:1">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-            <span id="tr-det-lbl" style="font-size:12px;font-weight:700;color:var(--txt)">Scanning for hand…</span>
+            <span id="tr-det-lbl" style="font-size:13px;font-weight:700;color:var(--txt)">Show your hand to begin</span>
             <span id="tr-hold-lbl" style="font-size:10px;color:var(--gold)"></span>
           </div>
           <div class="cbt"><div id="tr-hold" class="cbf" style="background:var(--gold)"></div></div>
         </div>
       </div>
-      <!-- Fallback sim buttons shown only if AI fails -->
-      <div id="tr-fallback" style="display:none">
-        <div style="font-size:10px;color:rgba(255,100,100,.7);text-align:center;margin-bottom:6px">⚠️ Gesture AI unavailable — tap to simulate:</div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:6px" id="tr-sgr"></div>
+
+      <!-- Signed input log -->
+      <div class="sl">
+        <div class="sl-l"><span>Signed digits</span><button onclick="clrTrLog()" style="font-size:9px;color:rgba(255,255,255,.3);background:none;border:none">Clear</button></div>
+        <div id="tr-log" class="sl-c"><span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span></div>
       </div>
-      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit sign · hold 1.5s to confirm · open palm (🖐️) to clear last</div>
+
+      <!-- Fallback simulation (camera unavailable) -->
+      <div id="tr-fallback" style="display:none">
+        <div style="font-size:10px;color:rgba(255,160,80,.7);text-align:center;margin-bottom:8px">📷 Camera unavailable · tap signs below to simulate:</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="tr-sgr"></div>
+      </div>
+
+      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1.5s to confirm · open palm 🖐️ to delete last</div>
     </div>
-    <button id="tr-btn" onclick="doTr()" style="display:block;width:100%;padding:14px;border-radius:12px;background:var(--bg3);color:var(--mu);font-size:15px;font-weight:700;border:1px solid var(--bd);cursor:default">Enter an amount</button>
+
+    <button id="tr-btn" onclick="doTr()" style="display:block;width:100%;padding:15px;border-radius:12px;background:var(--bg3);color:var(--mu);font-size:15px;font-weight:700;border:1px solid var(--bd);cursor:default">Enter an amount</button>
     <div style="font-size:11px;color:var(--mu);text-align:center;margin-top:10px">Daily limit: ₹10,000 · UPI limit: ₹2,00,000</div>
   </div>
 </div>
 
 <!-- ══ PIN ══ -->
-<div id="s-pin" class="asc" style="min-height:668px;background:var(--bg)">
-  <div class="nhdr"><button class="nbk" onclick="go('transfer')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Confirm with UPI PIN</div><div id="pin-sub" style="font-size:11px;color:var(--mu)">Enter your 6-digit PIN</div></div></div>
+<div id="s-pin" class="asc" style="min-height:100dvh;background:var(--bg)">
+  <div class="nhdr">
+    <button class="nbk" onclick="go('transfer')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div><div style="font-size:15px;font-weight:700">Confirm with UPI PIN</div><div id="pin-sub" style="font-size:11px;color:var(--mu)">Enter your 6-digit PIN</div></div>
+  </div>
+
   <div style="padding:16px 18px">
-    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between"><div><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Sending to</div><div style="font-size:13.5px;font-weight:600">Amit Kumar</div></div><div style="text-align:right"><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Amount</div><div id="pin-amt" style="font-size:14px;font-weight:700;color:var(--acc)">₹ —</div></div></div>
-    <div id="pin-dots" style="display:flex;justify-content:center;gap:14px;margin-bottom:16px;padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--bd)"></div>
-    <div class="tog" style="margin-bottom:12px"><button id="pin-tk" class="tb ap" onclick="setPinMode(false)">⌨️ Keypad</button><button id="pin-ts" class="tb" onclick="setPinMode(true)">🤟 Sign Input</button></div>
+    <!-- Transaction summary -->
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between">
+      <div><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Sending to</div><div style="font-size:13.5px;font-weight:600">Amit Kumar</div></div>
+      <div style="text-align:right"><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Amount</div><div id="pin-amt" style="font-size:14px;font-weight:700;color:var(--acc)">₹ —</div></div>
+    </div>
+
+    <!-- PIN dots -->
+    <div id="pin-dots" style="display:flex;justify-content:center;gap:16px;margin-bottom:16px;padding:16px;background:var(--bg3);border-radius:10px;border:1px solid var(--bd)"></div>
+
+    <!-- Toggle -->
+    <div class="tog" style="margin-bottom:14px">
+      <button id="pin-tk" class="tb ap" onclick="setPinMode(false)">⌨️ Keypad</button>
+      <button id="pin-ts" class="tb" onclick="setPinMode(true)">🤟 Sign Language</button>
+    </div>
+
+    <!-- Keypad -->
     <div id="pin-kpad">
       <div class="kpad" style="margin-bottom:12px">
         <button class="kb" onclick="pPin('1')">1</button><button class="kb" onclick="pPin('2')">2</button><button class="kb" onclick="pPin('3')">3</button>
@@ -301,59 +461,73 @@ button{font-family:inherit;cursor:pointer}
         <button class="kb gh"></button><button class="kb" onclick="pPin('0')">0</button><button class="kb del" onclick="pPin('⌫')">⌫</button>
       </div>
     </div>
+
+    <!-- Sign language camera input -->
     <div id="pin-sign" style="display:none;margin-bottom:12px">
-      <div class="vf">
+      <div class="vf" style="height:240px">
         <video id="pin-vid" autoplay muted playsinline></video>
         <canvas id="pin-canvas"></canvas>
-        <div id="pin-cam" class="vfcam"><span style="font-size:24px">📷</span><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65);text-align:center;padding:0 16px">Loading gesture model…</span></div>
-        <svg id="pin-ring-svg" class="hold-ring" style="display:none" width="72" height="72" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r="29" fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-          <circle id="pin-ring" cx="36" cy="36" r="29" fill="none" stroke="#60A5FA" stroke-width="4" stroke-dasharray="0 182" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:36px 36px;transition:stroke-dasharray .1s linear"/>
-          <text id="pin-ring-txt" x="36" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"></text>
+        <div id="pin-cam" class="vfcam">
+          <span style="font-size:32px">🤟</span>
+          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.8)">Sign Language PIN</span>
+          <span style="font-size:11px;color:var(--mu);text-align:center;padding:0 20px">Allow camera to enter your PIN via hand gestures</span>
+        </div>
+        <svg id="pin-ring-svg" class="hold-ring" style="display:none" width="76" height="76" viewBox="0 0 76 76">
+          <circle cx="38" cy="38" r="31" fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
+          <circle id="pin-ring" cx="38" cy="38" r="31" fill="none" stroke="#60A5FA" stroke-width="4" stroke-dasharray="0 195" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:38px 38px;transition:stroke-dasharray .1s linear"/>
+          <text id="pin-ring-txt" x="38" y="45" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"></text>
         </svg>
       </div>
-      <div class="sl">
-        <div class="sl-l"><span>Signed input · live text</span><span style="font-size:9px;color:rgba(255,255,255,.25)">● digits hidden</span></div>
-        <div id="pin-log" class="sl-c"><span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gesture emoji appear here as you sign</span></div>
-      </div>
+
       <div id="pin-det" class="det-panel">
         <div id="pin-emoji" class="det-emoji">—</div>
         <div style="flex:1">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-            <span id="pin-det-lbl" style="font-size:12px;font-weight:700;color:var(--txt)">Scanning for hand…</span>
+            <span id="pin-det-lbl" style="font-size:13px;font-weight:700;color:var(--txt)">Show your hand to begin</span>
             <span id="pin-hold-lbl" style="font-size:10px;color:var(--acc)"></span>
           </div>
           <div class="cbt"><div id="pin-hold" class="cbf" style="background:var(--acc)"></div></div>
         </div>
       </div>
-      <div id="pin-fallback" style="display:none">
-        <div style="font-size:10px;color:rgba(255,100,100,.7);text-align:center;margin-bottom:6px">⚠️ Gesture AI unavailable — tap to simulate:</div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:6px" id="pin-sgr"></div>
+
+      <!-- Sign log -->
+      <div class="sl">
+        <div class="sl-l"><span>PIN input</span><span style="font-size:9px;color:rgba(255,255,255,.25)">● digits hidden for security</span></div>
+        <div id="pin-log" class="sl-c"><span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span></div>
       </div>
-      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit sign · hold 1.5s to confirm</div>
+
+      <div id="pin-fallback" style="display:none">
+        <div style="font-size:10px;color:rgba(255,160,80,.7);text-align:center;margin-bottom:8px">📷 Camera unavailable · tap signs below to simulate:</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="pin-sgr"></div>
+      </div>
+
+      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1.5s to confirm</div>
     </div>
-    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:10px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)"><span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(160,185,255,.9)">End-to-end encrypted · PIN never stored</span></div>
+
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
+      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(160,185,255,.9)">End-to-end encrypted · PIN never stored</span>
+    </div>
   </div>
 </div>
 
 <!-- ══ SUCCESS ══ -->
-<div id="s-success" class="asc" style="min-height:668px;background:var(--bg)">
+<div id="s-success" class="asc" style="min-height:100dvh;background:var(--bg)">
   <div style="background:var(--bg2);padding:14px 18px;border-bottom:1px solid var(--bd)"><div style="font-size:15px;font-weight:700">Payment Successful</div></div>
-  <div style="padding:24px 18px;text-align:center">
-    <div id="suc-chk" style="width:80px;height:80px;border-radius:50%;background:var(--ok-l);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;font-size:42px;margin:0 auto 16px;opacity:0;transform:scale(.4);transition:transform .4s cubic-bezier(.175,.885,.32,1.275),opacity .3s">✅</div>
+  <div style="padding:28px 18px;text-align:center">
+    <div id="suc-chk" style="width:88px;height:88px;border-radius:50%;background:var(--ok-l);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 18px;opacity:0;transform:scale(.4);transition:transform .4s cubic-bezier(.175,.885,.32,1.275),opacity .3s">✅</div>
     <div id="suc-body" style="opacity:0;transform:translateY(10px);transition:opacity .35s .15s,transform .35s .15s">
       <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);margin-bottom:6px">Transfer Successful</div>
-      <div id="suc-amt" style="font-size:34px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px">₹ —</div>
-      <div style="font-size:13px;color:var(--mu);margin-bottom:20px">Sent to Amit Kumar · @amitk</div>
+      <div id="suc-amt" style="font-size:36px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px">₹ —</div>
+      <div style="font-size:13px;color:var(--mu);margin-bottom:22px">Sent to Amit Kumar · @amitk</div>
       <div style="background:var(--bg3);border-radius:12px;border:1px solid var(--bd);padding:16px;margin-bottom:14px;text-align:left" id="suc-rec"></div>
-      <div style="background:var(--gold-l);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:11.5px;color:#D97706;line-height:1.5;text-align:left">🤟 Authorised via sign language PIN — inclusive auth, equally secure</div>
+      <div style="background:var(--gold-l);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:10px 14px;margin-bottom:22px;font-size:11.5px;color:#D97706;line-height:1.5;text-align:left">🤟 Authorised via sign language gesture — inclusive auth, equally secure</div>
       <button onclick="go('login')" class="bacc" style="margin-bottom:10px">Back to Home</button>
       <button style="display:block;width:100%;padding:12px;border-radius:10px;background:transparent;border:none;color:var(--acc);font-size:13.5px;font-weight:600">Download Receipt</button>
     </div>
   </div>
 </div>
 
-</div></div></div>
+</div><!-- #app -->
 
 <script>
 // ── ASL sign map ──────────────────────────────
@@ -364,10 +538,10 @@ let timers=[],trAmt='',trSign=false,trLog=[]
 let pin=[],pinSign=false,pinLog=[],trData={}
 
 // ── MediaPipe state ───────────────────────────
-let mpHands=null, camStream=null
-let mpActive=false, mpCtx=null // 'tr' | 'pin' | 'auth'
-let lastDigit=-1, holdStart=null, holdInterval=null
-const HOLD_TR=1500, HOLD_PIN=1500, HOLD_AUTH=2000
+let mpHands=null,camStream=null
+let mpActive=false,mpCtx=null // 'tr' | 'pin' | 'auth'
+let lastDigit=-1,holdStart=null,holdInterval=null
+const HOLD_TR=1500,HOLD_PIN=1500,HOLD_AUTH=2000
 
 // Hand skeleton connections
 const HC=[
@@ -405,10 +579,13 @@ async function initMP(){
 async function startSignInput(ctx){
   mpCtx=ctx;lastDigit=-1;holdStart=null
 
-  // Always show simulation buttons immediately — camera is a background upgrade
   showFallback(ctx)
 
-  const ids={tr:{vid:'tr-vid',cam:'tr-cam',canvas:'tr-canvas'},pin:{vid:'pin-vid',cam:'pin-cam',canvas:'pin-canvas'},auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'}}
+  const ids={
+    tr:{vid:'tr-vid',cam:'tr-cam',canvas:'tr-canvas'},
+    pin:{vid:'pin-vid',cam:'pin-cam',canvas:'pin-canvas'},
+    auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'}
+  }
   const {vid:vidId,cam:camId,canvas:cnvId}=ids[ctx]
   const v=document.getElementById(vidId)
   const cam=document.getElementById(camId)
@@ -417,28 +594,27 @@ async function startSignInput(ctx){
   const inIframe=window!==window.top
 
   if(!navigator.mediaDevices?.getUserMedia){
-    setCamNotice(cam,'📵','No camera API — using tap-to-sign')
+    setCamNotice(cam,'📵','No camera API available')
     return
   }
 
-  // Show attempting notice
-  cam.innerHTML='<div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:10px;color:rgba(255,255,255,.5)">Requesting camera…</span></div>'
+  cam.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:11px;color:rgba(255,255,255,.5)">Requesting camera access…</span></div>'
 
   let stream
   try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}})
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}}})
   }catch(e){
     if(inIframe){
-      setCamNotice(cam,'📷','Camera unavailable in preview<br><span style="color:rgba(255,255,255,.3);font-size:9px">Tap digits below · works in standalone deployment</span>')
+      setCamNotice(cam,'📷','Camera unavailable in preview<br><span style="font-size:10px;color:rgba(255,255,255,.3)">Tap digits below to simulate · camera works in standalone</span>')
     }else{
-      setCamNotice(cam,'📵','Camera access denied<br><span style="color:rgba(255,255,255,.3);font-size:9px">Allow in browser settings · using tap-to-sign</span>')
+      setCamNotice(cam,'🚫','Camera access denied<br><span style="font-size:10px;color:rgba(255,255,255,.3)">Allow camera in browser settings</span>')
     }
     return
   }
 
-  // Camera granted — upgrade to live view
+  // Camera granted — start live view
   camStream=stream;v.srcObject=stream;await v.play()
-  cam.innerHTML='<div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">Loading gesture AI…</span></div>'
+  cam.innerHTML='<div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.5);padding:6px 14px;border-radius:20px"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">Loading gesture AI…</span></div>'
 
   const ok=await initMP()
   if(!ok){
@@ -447,26 +623,29 @@ async function startSignInput(ctx){
     return
   }
 
-  // Full gesture AI active — hide simulation buttons, show detection panel
+  // Full gesture AI active
   cam.style.display='none'
-  addLiveTag(v,'LIVE · Gesture AI 🤟')
+  addLiveTag(v,'LIVE · MediaPipe AI 🤟')
   hideFallback(ctx)
   mpActive=true
+
+  // Show detection panel
   const dp=document.getElementById(ctx==='auth'?'sa-det':ctx+'-det')
   if(dp)dp.classList.add('on')
+
   const canvas=document.getElementById(cnvId)
   runLoop(v,canvas)
   holdInterval=setInterval(()=>tickHold(),16)
 }
 
 function setCamNotice(cam,icon,msg){
-  cam.innerHTML=`<span style="font-size:20px">${icon}</span><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.55);text-align:center;padding:0 14px;line-height:1.6">${msg}</span>`
+  cam.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:0 24px"><span style="font-size:28px">${icon}</span><span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);line-height:1.5">${msg}</span></div>`
 }
 
 function addLiveTag(v,label){
   const d=document.createElement('div')
-  d.style.cssText='position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.6);border-radius:20px;padding:4px 10px;z-index:6'
-  d.innerHTML=`<div style="width:6px;height:6px;border-radius:50%;background:#22C55E;animation:pulse 1.2s ease-in-out infinite"></div><span style="font-size:10px;font-weight:700;color:#fff">${label}</span>`
+  d.style.cssText='position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.65);border-radius:20px;padding:5px 12px;z-index:6'
+  d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulse 1.2s ease-in-out infinite"></div><span style="font-size:11px;font-weight:700;color:#fff">${label}</span>`
   v.parentElement.appendChild(d)
 }
 
@@ -495,8 +674,8 @@ function onHandResults(res){
   const canvas=document.getElementById(cnvId)
   if(!canvas)return
   const ctx2d=canvas.getContext('2d')
-  canvas.width=canvas.offsetWidth||canvas.clientWidth||160
-  canvas.height=canvas.offsetHeight||canvas.clientHeight||160
+  canvas.width=canvas.offsetWidth||canvas.clientWidth||260
+  canvas.height=canvas.offsetHeight||canvas.clientHeight||200
   ctx2d.clearRect(0,0,canvas.width,canvas.height)
 
   if(!res.multiHandLandmarks||!res.multiHandLandmarks.length){
@@ -509,7 +688,6 @@ function onHandResults(res){
   const digit=classifyASL(lm)
   if(digit===-1){onNoHand();return}
 
-  // Update UI emoji
   updateDetEmoji(digit)
 
   if(digit!==lastDigit){
@@ -536,19 +714,22 @@ function tickHold(){
   }
 }
 
-// ── Draw landmarks ────────────────────────────
+// ── Draw hand skeleton ─────────────────────────
 function drawHand(c,lm,w,h){
   const accent=mpCtx==='pin'?'#60A5FA':'#FBBF24'
-  c.strokeStyle='rgba(255,255,255,.28)';c.lineWidth=1.5
+  // Connections
+  c.strokeStyle='rgba(255,255,255,.3)';c.lineWidth=2
   HC.forEach(([a,b])=>{
     const A=lm[a],B=lm[b]
     c.beginPath();c.moveTo((1-A.x)*w,A.y*h);c.lineTo((1-B.x)*w,B.y*h);c.stroke()
   })
+  // Joints
   lm.forEach((p,i)=>{
     const x=(1-p.x)*w,y=p.y*h
     const tip=[4,8,12,16,20].includes(i)
-    c.beginPath();c.arc(x,y,tip?4.5:2.5,0,Math.PI*2)
-    c.fillStyle=tip?accent:'rgba(255,255,255,.75)';c.fill()
+    c.beginPath();c.arc(x,y,tip?5:3,0,Math.PI*2)
+    c.fillStyle=tip?accent:'rgba(255,255,255,.8)';c.fill()
+    if(tip){c.strokeStyle=accent;c.lineWidth=1.5;c.stroke()}
   })
 }
 
@@ -556,54 +737,32 @@ function drawHand(c,lm,w,h){
 function classifyASL(lm){
   const W=lm[0],iMCP=lm[5],pMCP=lm[17]
   const up=W.y>iMCP.y-.05
-
   function ext(tip,pip){return up?tip.y<pip.y-0.02:tip.y>pip.y+0.02}
-
-  const iE=ext(lm[8],lm[6])
-  const mE=ext(lm[12],lm[10])
-  const rE=ext(lm[16],lm[14])
-  const pE=ext(lm[20],lm[18])
-
+  const iE=ext(lm[8],lm[6]),mE=ext(lm[12],lm[10])
+  const rE=ext(lm[16],lm[14]),pE=ext(lm[20],lm[18])
   const isRight=iMCP.x<pMCP.x
-  const tIP=lm[3],tTip=lm[4]
-  const tE=isRight?(tTip.x>tIP.x+.04):(tTip.x<tIP.x-.04)
-
+  const tE=isRight?(lm[4].x>lm[3].x+.04):(lm[4].x<lm[3].x-.04)
   const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)
-  const tiD=dist(lm[4],lm[8])
-  const tmD=dist(lm[4],lm[12])
-  const tpD=dist(lm[4],lm[20])
-
-  // 0: fist with thumb-index O
+  const tiD=dist(lm[4],lm[8]),tmD=dist(lm[4],lm[12]),tpD=dist(lm[4],lm[20])
   if(!iE&&!mE&&!rE&&!pE&&tiD<.09)return 0
-  // 5: open hand all up
   if(iE&&mE&&rE&&pE&&tE)return 5
-  // 4: four fingers no thumb
   if(iE&&mE&&rE&&pE&&!tE)return 4
-  // 1: index only
   if(iE&&!mE&&!rE&&!pE)return 1
-  // 2: index + middle
   if(iE&&mE&&!rE&&!pE)return 2
-  // 3: index + middle + ring
   if(iE&&mE&&rE&&!pE)return 3
-  // 6: thumb + pinky close, others mid
   if(!iE&&!mE&&!rE&&tpD<.09)return 6
-  // 9: index+thumb O, middle+ring+pinky up
   if(!iE&&mE&&rE&&pE&&tiD<.07)return 9
-  // 8: thumb+middle close, others up
   if(!iE&&!mE&&rE&&pE&&tmD<.08)return 8
-  // 7: index+pinky up, thumb+middle+ring down
   if(iE&&!mE&&!rE&&pE)return 7
   return -1
 }
 
-// ── Accept confirmed digit ────────────────────
+// ── Accept confirmed gesture ──────────────────
 function acceptDigit(digit){
   if(mpCtx==='auth'){
     const done=document.getElementById('sa-done')
-    if(done)done.style.display='flex'
-    const badge=document.getElementById('sa-badge')
-    if(badge){badge.textContent=`${SIGNS[digit]} Greeting recognised ✓`;badge.style.display='block'}
-    timers.push(setTimeout(()=>go('home'),700))
+    if(done){done.style.display='flex';done.style.alignItems='center';done.style.justifyContent='center'}
+    timers.push(setTimeout(()=>go('home'),800))
     return
   }
   if(mpCtx==='tr'){
@@ -611,9 +770,8 @@ function acceptDigit(digit){
     else if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog()}
     updTr()
   }else if(mpCtx==='pin'){
-    if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),400))}
+    if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),500))}
   }
-  // flash ring
   flashConfirm()
 }
 
@@ -633,12 +791,11 @@ function setHoldUI(p){
   const rSvg=document.getElementById(pfx+'-ring-svg')
   const bar=document.getElementById(pfx==='sa'?'sa-hold':mpCtx+'-hold')
   const lbl=document.getElementById(pfx==='sa'?'sa-hold-lbl':mpCtx+'-hold-lbl')
-  const full=pfx==='sa'?214:182
+  const full=pfx==='sa'?264:207
 
   if(ring)ring.setAttribute('stroke-dasharray',`${p*full} ${full}`)
-  if(ringTxt){if(p>0&&p<1)ringTxt.textContent=SIGNS[lastDigit]||'';else ringTxt.textContent=''}
-  if(rSvg&&p>0&&p<1)rSvg.style.display='block'
-  else if(rSvg&&(p===0||p>=1))rSvg.style.display='none'
+  if(ringTxt){ringTxt.textContent=p>0&&p<1?(SIGNS[lastDigit]||''):''}
+  if(rSvg)rSvg.style.display=(p>0&&p<1)?'block':'none'
   if(bar)bar.style.width=(p*100)+'%'
   if(lbl){
     if(p<=0)lbl.textContent=lastDigit>=0?'Hold to confirm':''
@@ -649,16 +806,15 @@ function setHoldUI(p){
 
 function updateDetEmoji(digit){
   const pfx=mpCtx==='auth'?'sa':mpCtx
-  const emojiEl=document.getElementById(pfx+'-emoji')||document.getElementById('sa-emoji')
+  const emojiEl=document.getElementById(pfx+'-emoji')
   const lblEl=document.getElementById(pfx==='sa'?'sa-lbl':mpCtx+'-det-lbl')
   if(digit===-1){
     if(emojiEl)emojiEl.textContent='—'
-    if(lblEl)lblEl.textContent='Scanning for hand…'
+    if(lblEl)lblEl.textContent='Show your hand to begin'
   }else{
     if(emojiEl)emojiEl.textContent=SIGNS[digit]
-    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to authenticate with ${SIGNS[digit]}`:`Digit ${digit} detected`
+    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to log in with ${SIGNS[digit]}`:`Digit ${digit} — ${SIGNS[digit]}`
   }
-  // update sa-pct for auth
   if(mpCtx==='auth'){
     const pct=document.getElementById('sa-pct')
     const fill=document.getElementById('sa-fill')
@@ -667,7 +823,7 @@ function updateDetEmoji(digit){
       const conf=Math.round(72+Math.random()*20)
       if(pct)pct.textContent=conf+'%'
       if(fill)fill.style.width=conf+'%'
-      if(hint)hint.textContent=`${SIGNS[digit]} detected — hold 2s to log in`
+      if(hint)hint.textContent=`${SIGNS[digit]} detected · hold 2 seconds to authenticate`
     }else{
       if(pct)pct.textContent='—'
       if(fill)fill.style.width='0'
@@ -678,14 +834,16 @@ function updateDetEmoji(digit){
 
 // ── Fallback simulation ───────────────────────
 function showFallback(ctx){
-  const fb=document.getElementById(ctx==='auth'?null:ctx+'-fallback')
-  const sgr=document.getElementById(ctx==='auth'?null:ctx+'-sgr')
+  if(ctx==='auth')return // auth uses skip button instead
+  const fb=document.getElementById(ctx+'-fallback')
+  const sgr=document.getElementById(ctx+'-sgr')
   if(fb)fb.style.display='block'
   if(sgr)sgr.innerHTML=[1,2,3,4,5,6,7,8,9,0].map(d=>`<button onclick="simSign(${d},'${ctx}')" style="height:44px;border-radius:8px;font-size:20px;background:rgba(255,255,255,.07);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center">${SIGNS[d]}</button>`).join('')
 }
 
 function hideFallback(ctx){
-  const fb=document.getElementById(ctx==='auth'?null:ctx+'-fallback')
+  if(ctx==='auth')return
+  const fb=document.getElementById(ctx+'-fallback')
   if(fb)fb.style.display='none'
 }
 
@@ -697,65 +855,72 @@ function simSign(digit,ctx){
 // ── Sign logs ─────────────────────────────────
 function updTrLog(){
   const e=document.getElementById('tr-log');if(!e)return
-  if(!trLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gesture emoji appear here as you sign</span>';return}
-  e.innerHTML=trLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:22px">${SIGNS[d]}</span><span style="font-size:10px;font-weight:700;background:rgba(217,119,6,.2);color:#FBBF24;padding:1px 5px;border-radius:4px">${d}</span></div>`).join('')
+  if(!trLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span>';return}
+  e.innerHTML=trLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><span style="font-size:10px;font-weight:700;background:rgba(217,119,6,.2);color:#FBBF24;padding:1px 5px;border-radius:4px">${d}</span></div>`).join('')
 }
 function updPinLog(){
   const e=document.getElementById('pin-log');if(!e)return
-  if(!pinLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gesture emoji appear here as you sign</span>';return}
-  e.innerHTML=pinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:22px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:2px"></div></div>`).join('')
+  if(!pinLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span>';return}
+  e.innerHTML=pinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:2px"></div></div>`).join('')
 }
-function clrTrLog(){trLog=[];updTrLog()}
+function clrTrLog(){trLog=[];trAmt='';updTrLog();updTr()}
 
 // ── Router ────────────────────────────────────
 function clr(){timers.forEach(t=>{clearTimeout(t);clearInterval(t)});timers=[]}
-// Screens that use flex layout when visible
 const FLEX_SCR=new Set(['login','home'])
-// Set initial screen display (login starts with class "on" but needs inline flex)
+
 ;(function(){const el=document.getElementById('s-login');if(el)el.style.display='flex'})()
+
 function go(s){
   clr()
   if(s!=='transfer'&&s!=='pin'&&s!=='sign-auth')stopAllSign()
-  // Clear both class and any inline display so CSS !important hides them
   document.querySelectorAll('.asc').forEach(e=>{e.classList.remove('on');e.style.display=''})
   const el=document.getElementById('s-'+s)
   if(el){
     el.classList.add('on')
-    // Inline display must be set explicitly to override the initial inline style on each div
     el.style.display=FLEX_SCR.has(s)?'flex':'block'
   }
+  window.scrollTo(0,0)
   const map={passkey:initPk,face:initFace,'sign-auth':initSA,transfer:initTr,pin:initPin,success:initSuc}
   if(map[s])map[s]()
 }
-function chooseAuth(t){setTimeout(()=>go(t),180)}
+function chooseAuth(t){setTimeout(()=>go(t),160)}
 
 // ── Auth screens ──────────────────────────────
 function initPk(){
   let p=0,ring=document.getElementById('pk-ring'),lbl=document.getElementById('pk-lbl')
-  const t=setInterval(()=>{p=Math.min(p+2,100);ring.setAttribute('stroke-dasharray',`${(p/100)*251} 251`);if(p>=100){clearInterval(t);lbl.textContent='✓ Verified — welcome back!';lbl.style.color='var(--ok)';lbl.style.fontWeight='700';timers.push(setTimeout(()=>go('home'),700))}else lbl.textContent=`Authenticating… ${p}%`},50);timers.push(t)
+  const t=setInterval(()=>{
+    p=Math.min(p+2,100)
+    ring.setAttribute('stroke-dasharray',`${(p/100)*251} 251`)
+    if(p>=100){clearInterval(t);lbl.textContent='✓ Verified — welcome back!';lbl.style.color='var(--ok)';lbl.style.fontWeight='700';timers.push(setTimeout(()=>go('home'),700))}
+    else lbl.textContent=`Authenticating… ${p}%`
+  },50);timers.push(t)
 }
 function initFace(){
-  let c=0,fill=document.getElementById('face-fill'),pct=document.getElementById('face-pct')
+  let c=0
+  const fill=document.getElementById('face-fill'),pct=document.getElementById('face-pct')
   const st=document.getElementById('face-st'),oval=document.getElementById('face-oval'),done=document.getElementById('face-done')
   timers.push(setTimeout(()=>document.getElementById('face-live').style.display='block',1800))
-  const t=setInterval(()=>{c=Math.min(c+1.5,95);fill.style.width=c+'%';pct.textContent=Math.round(c)+'%';if(c>=95){clearInterval(t);fill.style.background='var(--ok)';pct.style.color='var(--ok)';oval.style.borderColor='var(--ok)';done.style.display='flex';st.textContent='✓ Identity verified';st.style.color='var(--ok)';timers.push(setTimeout(()=>go('home'),700))}},60);timers.push(t)
+  const t=setInterval(()=>{
+    c=Math.min(c+1.5,95)
+    fill.style.width=c+'%';pct.textContent=Math.round(c)+'%'
+    if(c>=95){clearInterval(t);fill.style.background='var(--ok)';pct.style.color='var(--ok)';oval.style.borderColor='var(--ok)';done.style.display='flex';st.textContent='✓ Identity verified';st.style.color='var(--ok)';timers.push(setTimeout(()=>go('home'),700))}
+  },60);timers.push(t)
 }
 function initSA(){
-  // reset state
-  const done=document.getElementById('sa-done'),badge=document.getElementById('sa-badge')
+  const done=document.getElementById('sa-done')
   if(done)done.style.display='none'
-  if(badge)badge.style.display='none'
   document.getElementById('sa-fill').style.width='0'
   document.getElementById('sa-pct').textContent='—'
   const det=document.getElementById('sa-det');if(det)det.classList.remove('on')
-  // start camera + ML
   startSignInput('auth')
 }
 
 // ── Transfer ──────────────────────────────────
 function initTr(){
-  trAmt='';trSign=false;trLog=[];
+  trAmt='';trSign=false;trLog=[]
   const det=document.getElementById('tr-det');if(det)det.classList.remove('on')
+  const badge=document.getElementById('tr-mode-badge');if(badge)badge.style.display='none'
   setTrMode(false);updTr();updTrLog()
 }
 function setTrMode(s){
@@ -764,6 +929,8 @@ function setTrMode(s){
   document.getElementById('tr-sign').style.display=s?'block':'none'
   document.getElementById('tr-tk').className='tb'+(s?'':' ak')
   document.getElementById('tr-ts').className='tb'+(s?' as':'')
+  const badge=document.getElementById('tr-mode-badge')
+  if(badge)badge.style.display=s?'inline-flex':'none'
   if(s)startSignInput('tr');else stopAllSign()
 }
 function pTr(k){if(k==='⌫')trAmt=trAmt.slice(0,-1);else if(trAmt.length<8)trAmt+=k;updTr()}
@@ -772,8 +939,8 @@ function updTr(){
   const ok=trAmt.length>0&&Number(trAmt)>0
   d.innerHTML=(trAmt?'₹ '+parseInt(trAmt).toLocaleString('en-IN'):'₹ 0')+'<span style="opacity:.25">|</span>'
   d.style.color=ok?'var(--txt)':'var(--mu)'
-  if(ok){b.style.cssText='display:block;width:100%;padding:14px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer'}
-  else{b.style.cssText='display:block;width:100%;padding:14px;border-radius:12px;background:var(--bg3);color:var(--mu);font-size:15px;font-weight:700;border:1px solid var(--bd);cursor:default'}
+  if(ok){b.style.cssText='display:block;width:100%;padding:15px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer'}
+  else{b.style.cssText='display:block;width:100%;padding:15px;border-radius:12px;background:var(--bg3);color:var(--mu);font-size:15px;font-weight:700;border:1px solid var(--bd);cursor:default'}
   b.textContent=ok?`Send ₹ ${parseInt(trAmt).toLocaleString('en-IN')}`:'Enter an amount'
 }
 function doTr(){if(!trAmt||Number(trAmt)<=0)return;trData={amount:trAmt};go('pin')}
@@ -791,7 +958,7 @@ function setPinMode(s){
   document.getElementById('pin-kpad').style.display=s?'none':'block'
   document.getElementById('pin-sign').style.display=s?'block':'none'
   document.getElementById('pin-tk').className='tb'+(s?'':' ap')
-  document.getElementById('pin-ts').className='tb'+(s?' ap':'')
+  document.getElementById('pin-ts').className='tb'+(s?' as':'')
   if(s)startSignInput('pin');else stopAllSign()
 }
 function pPin(k){
@@ -802,7 +969,7 @@ function pPin(k){
 function updDots(){
   document.getElementById('pin-dots').innerHTML=Array.from({length:6},(_,i)=>{
     const f=i<pin.length
-    return `<div style="width:14px;height:14px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
+    return `<div style="width:16px;height:16px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
   }).join('')
 }
 
@@ -820,7 +987,7 @@ function initSuc(){
     ['Date',now.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+', '+now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})],
     ['UTR No.','AARK'+Math.floor(Math.random()*9e11+1e11)],
     ['Status','✓ Success'],
-  ].map(([l,v],i,a)=>`<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;${i<a.length-1?'border-bottom:1px solid var(--bd)':''}"><span style="font-size:11.5px;color:var(--mu)">${l}</span><span style="font-size:11.5px;color:${l==='Status'?'var(--ok)':'var(--txt)'};font-weight:600;text-align:right;max-width:60%">${v}</span></div>`).join('')
+  ].map(([l,v],i,a)=>`<div style="display:flex;justify-content:space-between;padding:8px 0;${i<a.length-1?'border-bottom:1px solid var(--bd)':''}"><span style="font-size:11.5px;color:var(--mu)">${l}</span><span style="font-size:11.5px;color:${l==='Status'?'var(--ok)':'var(--txt)'};font-weight:600;text-align:right;max-width:60%">${v}</span></div>`).join('')
   if(trLog.length||pinLog.length){
     const tg=trLog.map(d=>SIGNS[d]).join(' '),pg=pinLog.map(d=>SIGNS[d]).join(' ')
     rec.innerHTML+=`<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--bd)"><div style="font-size:10px;font-weight:700;color:var(--mu);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Sign Language Used</div>${tg?`<div style="font-size:12px;color:var(--txt2)">Amount: ${tg}</div>`:''} ${pg?`<div style="font-size:12px;color:var(--txt2)">PIN: ${pg.split('').map(()=>'●').join(' ')}</div>`:''}</div>`
@@ -828,3 +995,5 @@ function initSuc(){
   timers.push(setTimeout(()=>{chk.style.opacity='1';chk.style.transform='scale(1)';body.style.opacity='1';body.style.transform='translateY(0)'},80))
 }
 </script>
+</body>
+</html>
