@@ -108,79 +108,169 @@ button{font-family:inherit;cursor:pointer}
 <div id="app">
 
 <!-- ══ LOGIN ══ -->
-<div id="s-login" class="asc on" style="min-height:100dvh;display:flex;flex-direction:column">
-  <!-- App header -->
-  <div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border-bottom:1px solid var(--bd)">
+<div id="s-login" class="asc on" style="min-height:100dvh;display:flex;flex-direction:column;background:#F0F2FA">
+  <!-- Header -->
+  <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #E5E7EB">
     <div style="display:inline-flex;align-items:center;gap:6px;background:#E31837;border-radius:6px;padding:6px 10px 6px 7px">
       <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="1" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
       <span style="font-size:12px;font-weight:800;color:#fff;letter-spacing:.06em">HDFC BANK</span>
     </div>
-    <span style="font-size:10px;color:var(--mu)">Inclusive Banking</span>
+    <span style="font-size:10px;color:#9CA3AF">Inclusive Banking</span>
   </div>
 
-  <!-- User greeting -->
-  <div style="padding:22px 18px 0">
-    <div style="font-size:14px;color:var(--txt2);margin-bottom:2px">Hello,</div>
-    <div style="font-size:28px;font-weight:800;letter-spacing:-.4px;margin-bottom:14px">Riya Sharma</div>
+  <!-- Greeting -->
+  <div style="padding:20px 18px 18px;background:#fff;border-bottom:1px solid #F3F4F6">
+    <div style="font-size:14px;color:#6B7280;margin-bottom:2px">Hello,</div>
+    <div style="font-size:26px;font-weight:800;letter-spacing:-.4px;color:#111827;margin-bottom:14px">Riya Sharma</div>
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--txt2)">Cust ID •••• 4568<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--txt2)">View balance<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="rgba(255,255,255,.45)" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="rgba(255,255,255,.45)" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:#6B7280">Cust ID •••• 4568<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:#6B7280">View balance<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="#9CA3AF" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="#9CA3AF" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/></svg></div>
     </div>
   </div>
 
-  <!-- QR hero -->
-  <div style="margin:20px 0 0;padding:24px 18px 32px;background:var(--bg2);display:flex;flex-direction:column;align-items:center;position:relative">
-    <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:200px;height:32px;background:rgba(75,112,255,.1);border-radius:50%;filter:blur(20px)"></div>
-    <div style="width:76px;height:76px;border-radius:50%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin-bottom:8px;animation:glow 3s ease-in-out infinite">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><rect x="19" y="4" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><rect x="4" y="19" width="9" height="9" rx="2" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="19" y1="19" x2="28" y2="19" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="23.5" y1="19" x2="23.5" y2="28" stroke="rgba(160,140,255,.85)" stroke-width="2"/><line x1="19" y1="23.5" x2="19" y2="28" stroke="rgba(160,140,255,.85)" stroke-width="2"/></svg>
+  <!-- QR scan hero -->
+  <div style="background:#fff;padding:22px 18px 26px;display:flex;flex-direction:column;align-items:center">
+    <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(91,81,248,.25);background:rgba(91,81,248,.06);display:flex;align-items:center;justify-content:center;margin-bottom:10px;animation:glow 3s ease-in-out infinite">
+      <svg width="36" height="36" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><rect x="19" y="4" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><rect x="4" y="19" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><line x1="19" y1="19" x2="28" y2="19" stroke="#5B51F8" stroke-width="2"/><line x1="23.5" y1="19" x2="23.5" y2="28" stroke="#5B51F8" stroke-width="2"/><line x1="19" y1="23.5" x2="19" y2="28" stroke="#5B51F8" stroke-width="2"/></svg>
     </div>
-    <div style="font-size:11px;color:var(--txt2)">Scan & pay</div>
+    <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px">Scan & pay</div>
+    <div style="width:200px;height:1px;background:linear-gradient(90deg,transparent,rgba(91,81,248,.35),transparent);margin-bottom:10px"></div>
+    <div style="font-size:11px;font-style:italic;color:#9CA3AF;text-align:center;line-height:1.5">No login required. You can access all features with ease</div>
   </div>
 
   <!-- Quick actions -->
-  <div style="display:flex;justify-content:space-around;padding:20px 28px;background:var(--bg3);border-bottom:1px solid var(--bd)">
-    <div onclick="go('transfer')" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer">
-      <div style="width:52px;height:52px;border-radius:50%;background:var(--yel);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.3)">₹</div>
-      <span style="font-size:11px;color:var(--txt2)">Send</span>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-      <div style="width:52px;height:52px;border-radius:16px;background:var(--tel);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(16,185,129,.25)">🧾</div>
-      <span style="font-size:11px;color:var(--txt2)">Pay bills</span>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative">
-      <div style="width:52px;height:52px;border-radius:50%;background:var(--pnk);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;box-shadow:0 4px 14px rgba(236,72,153,.25)">✓</div>
-      <div style="position:absolute;top:-2px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid var(--bg3)"></div>
-      <span style="font-size:11px;color:var(--txt2)">Apply</span>
-    </div>
-  </div>
-
-  <!-- Auth methods -->
-  <div style="padding:20px 18px;flex:1;display:flex;flex-direction:column;gap:10px">
-    <button onclick="chooseAuth('passkey')" class="bacc" style="display:flex;align-items:center;justify-content:center;gap:10px">
-      Login with Touch ID
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9.5" rx="3.5" ry="4.5" stroke="#fff" stroke-width="1.8"/><path d="M6.5 9.5C6.5 6.5 9 4 12 4s5.5 2.5 5.5 5.5c0 3.5-1.2 6-3.5 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 11c.5-4 3.5-7 7.5-7s7 3 7.5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9 9.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 3.2-1.2 5.5-3 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-
-    <!-- Sign language login — prominent -->
-    <button onclick="chooseAuth('sign-auth')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:12px;background:rgba(217,119,6,.1);color:#F59E0B;font-size:14px;font-weight:700;border:1.5px solid rgba(217,119,6,.3)">
-      🤟 Login with Sign Language
-      <span style="font-size:9px;font-weight:700;background:rgba(217,119,6,.25);border-radius:10px;padding:2px 7px;color:#FBBF24">AI Camera</span>
-    </button>
-
-    <button onclick="chooseAuth('face')" style="background:none;border:none;color:var(--txt2);font-size:13px;padding:4px;width:100%;text-align:center">Or, Login with Face ID &nbsp;👤</button>
-
-    <div style="text-align:center">
-      <div style="font-size:12px;color:var(--mu);margin-bottom:8px">Or, Enter 4 digit mPIN</div>
-      <div style="display:flex;justify-content:center;gap:10px">
-        <div style="width:26px;height:3px;border-radius:2px;background:var(--bd)"></div><div style="width:26px;height:3px;border-radius:2px;background:var(--bd)"></div><div style="width:26px;height:3px;border-radius:2px;background:var(--bd)"></div><div style="width:26px;height:3px;border-radius:2px;background:var(--bd)"></div>
+  <div style="background:#fff;border-top:1px solid #F3F4F6;border-bottom:1px solid #F3F4F6;padding:16px 0">
+    <div style="display:flex;justify-content:space-around;padding:0 24px">
+      <div onclick="go('transfer')" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer">
+        <div style="width:54px;height:54px;border-radius:50%;background:#FEF3C7;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#D97706">₹</div>
+        <span style="font-size:11px;color:#374151;font-weight:500">Send money</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
+        <div style="width:54px;height:54px;border-radius:16px;background:#D1FAE5;display:flex;align-items:center;justify-content:center;font-size:24px">🧾</div>
+        <span style="font-size:11px;color:#374151;font-weight:500">Pay bills</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:7px;position:relative">
+        <div style="width:54px;height:54px;border-radius:50%;background:#FCE7F3;display:flex;align-items:center;justify-content:center;font-size:22px">🏷️</div>
+        <div style="position:absolute;top:-2px;right:0;width:10px;height:10px;border-radius:50%;background:#E31837;border:2px solid #fff"></div>
+        <span style="font-size:11px;color:#374151;font-weight:500">Open A/C</span>
       </div>
     </div>
   </div>
 
-  <div style="border-top:1px solid var(--bd);display:flex;justify-content:space-around;padding:12px 0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)">
-    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">👤</span><span style="font-size:10px;color:var(--mu)">Open A/C</span></button>
-    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">💬</span><span style="font-size:10px;color:var(--mu)">Reach Us</span></button>
-    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">⋯</span><span style="font-size:10px;color:var(--mu)">More</span></button>
+  <!-- Auth methods -->
+  <div style="flex:1;padding:18px 18px 8px;display:flex;flex-direction:column;gap:10px">
+    <!-- Touch ID (primary) -->
+    <button onclick="chooseAuth('passkey')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:14px;background:#2B4BDA;color:#fff;font-size:15px;font-weight:700;border:none;box-shadow:0 4px 16px rgba(43,75,218,.35)">
+      Login with Touch ID
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9.5" rx="3.5" ry="4.5" stroke="#fff" stroke-width="1.8"/><path d="M6.5 9.5C6.5 6.5 9 4 12 4s5.5 2.5 5.5 5.5c0 3.5-1.2 6-3.5 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 11c.5-4 3.5-7 7.5-7s7 3 7.5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9 9.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 3.2-1.2 5.5-3 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Face ID -->
+    <button onclick="chooseAuth('face')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:14px;background:#fff;color:#374151;font-size:14px;font-weight:600;border:1.5px solid #E5E7EB;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="#374151" stroke-width="1.8"/><rect x="17" y="2" width="5" height="5" rx="1" stroke="#374151" stroke-width="1.8"/><rect x="2" y="17" width="5" height="5" rx="1" stroke="#374151" stroke-width="1.8"/><rect x="17" y="17" width="5" height="5" rx="1" stroke="#374151" stroke-width="1.8"/><circle cx="9" cy="10" r="1.2" fill="#374151"/><circle cx="15" cy="10" r="1.2" fill="#374151"/><path d="M9 15c.7 1 1.5 1.5 3 1.5s2.3-.5 3-1.5" stroke="#374151" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Login with Face ID
+    </button>
+
+    <!-- Sign language -->
+    <button onclick="chooseAuth('sign-auth')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:14px;background:#FFFBEB;color:#D97706;font-size:13px;font-weight:600;border:1.5px solid #FDE68A">
+      🤟 Login with Sign Language
+      <span style="font-size:9px;font-weight:700;background:#FDE68A;border-radius:10px;padding:2px 7px;color:#92400E">AI Camera</span>
+    </button>
+
+    <!-- mPIN link row -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 2px">
+      <button onclick="go('mpin')" style="background:none;border:none;font-size:13px;color:#2B4BDA;font-weight:600;padding:0;cursor:pointer">Or, enter your mPIN</button>
+      <button style="background:none;border:none;font-size:13px;color:#2B4BDA;font-weight:600;padding:0;cursor:pointer">Forgot mPIN?</button>
+    </div>
+  </div>
+
+  <!-- Footer bar -->
+  <div style="background:#fff;border-top:1px solid #E5E7EB;display:flex;justify-content:space-around;padding:12px 0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)">
+    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">🔧</span><span style="font-size:10px;color:#6B7280">Maintenance</span></button>
+    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">💬</span><span style="font-size:10px;color:#6B7280">Reach us</span></button>
+    <button style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:16px">⋯</span><span style="font-size:10px;color:#6B7280">More</span></button>
+  </div>
+</div>
+
+<!-- ══ MPIN ══ -->
+<div id="s-mpin" class="asc" style="min-height:100dvh;background:var(--bg)">
+  <div class="nhdr">
+    <button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div style="flex:1"><div style="font-size:15px;font-weight:700">Enter mPIN</div><div style="font-size:11px;color:var(--mu)">4-digit mobile PIN</div></div>
+    <button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:600;cursor:pointer">Forgot?</button>
+  </div>
+
+  <div style="padding:16px 18px">
+    <!-- User card -->
+    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">RS</div>
+      <div><div style="font-size:13.5px;font-weight:700">Riya Sharma</div><div style="font-size:11px;color:var(--mu)">Cust ID: •••• 4568</div></div>
+    </div>
+
+    <!-- 4-dot PIN indicator -->
+    <div id="mpin-dots" style="display:flex;justify-content:center;gap:20px;margin-bottom:18px;padding:20px;background:var(--bg3);border-radius:10px;border:1px solid var(--bd)"></div>
+
+    <!-- Mode toggle -->
+    <div class="tog" style="margin-bottom:14px">
+      <button id="mpin-tk" class="tb ap" onclick="setMpinMode(false)">⌨️ Keypad</button>
+      <button id="mpin-ts" class="tb" onclick="setMpinMode(true)">🤟 Sign Language</button>
+    </div>
+
+    <!-- Keypad -->
+    <div id="mpin-kpad">
+      <div class="kpad" style="margin-bottom:12px">
+        <button class="kb" onclick="pMpin('1')">1</button><button class="kb" onclick="pMpin('2')">2</button><button class="kb" onclick="pMpin('3')">3</button>
+        <button class="kb" onclick="pMpin('4')">4</button><button class="kb" onclick="pMpin('5')">5</button><button class="kb" onclick="pMpin('6')">6</button>
+        <button class="kb" onclick="pMpin('7')">7</button><button class="kb" onclick="pMpin('8')">8</button><button class="kb" onclick="pMpin('9')">9</button>
+        <button class="kb gh"></button><button class="kb" onclick="pMpin('0')">0</button><button class="kb del" onclick="pMpin('⌫')">⌫</button>
+      </div>
+    </div>
+
+    <!-- Sign language camera -->
+    <div id="mpin-sign" style="display:none;margin-bottom:12px">
+      <div class="vf" style="height:240px">
+        <video id="mpin-vid" autoplay muted playsinline></video>
+        <canvas id="mpin-canvas"></canvas>
+        <div id="mpin-cam" class="vfcam">
+          <span style="font-size:36px">🤟</span>
+          <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.8)">Sign Language PIN</span>
+          <span style="font-size:11px;color:var(--mu);text-align:center;padding:0 20px">Allow camera access to enter your mPIN via hand gestures</span>
+          <span style="font-size:10px;color:rgba(255,255,255,.2);margin-top:6px">Powered by Google MediaPipe</span>
+        </div>
+        <svg id="mpin-ring-svg" class="hold-ring" style="display:none" width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="33" fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
+          <circle id="mpin-ring" cx="40" cy="40" r="33" fill="none" stroke="#60A5FA" stroke-width="4" stroke-dasharray="0 207" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:40px 40px;transition:stroke-dasharray .1s linear"/>
+          <text id="mpin-ring-txt" x="40" y="47" text-anchor="middle" font-size="18" font-weight="900" fill="#fff"></text>
+        </svg>
+      </div>
+
+      <div id="mpin-det" class="det-panel">
+        <div id="mpin-emoji" class="det-emoji">—</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <span id="mpin-det-lbl" style="font-size:13px;font-weight:700;color:var(--txt)">Show your hand to begin</span>
+            <span id="mpin-hold-lbl" style="font-size:10px;color:#60A5FA"></span>
+          </div>
+          <div class="cbt"><div id="mpin-hold" class="cbf" style="background:#60A5FA"></div></div>
+        </div>
+      </div>
+
+      <div class="sl">
+        <div class="sl-l"><span>Signed digits</span><button onclick="clrMpinLog()" style="font-size:9px;color:rgba(255,255,255,.3);background:none;border:none">Clear</button></div>
+        <div id="mpin-log" class="sl-c"><span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span></div>
+      </div>
+
+      <div id="mpin-fallback" style="display:none">
+        <div style="font-size:10px;color:rgba(255,160,80,.7);text-align:center;margin-bottom:8px">📷 Camera unavailable · tap signs below to simulate:</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="mpin-sgr"></div>
+      </div>
+
+      <div style="font-size:10px;color:var(--mu);text-align:center;margin-bottom:12px">Show digit · hold 1.5s to confirm</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
+      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(160,185,255,.9)">End-to-end encrypted · PIN never stored</span>
+    </div>
   </div>
 </div>
 
@@ -536,6 +626,7 @@ const SIGNS={0:'⭕',1:'☝️',2:'✌️',3:'🤟',4:'🖖',5:'🖐️',6:'🤙
 // ── App state ─────────────────────────────────
 let timers=[],trAmt='',trSign=false,trLog=[]
 let pin=[],pinSign=false,pinLog=[],trData={}
+let mpin=[],mpinSign=false,mpinLog=[]
 
 // ── MediaPipe state ───────────────────────────
 let mpHands=null,camStream=null
@@ -584,7 +675,8 @@ async function startSignInput(ctx){
   const ids={
     tr:{vid:'tr-vid',cam:'tr-cam',canvas:'tr-canvas'},
     pin:{vid:'pin-vid',cam:'pin-cam',canvas:'pin-canvas'},
-    auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'}
+    auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'},
+    mpin:{vid:'mpin-vid',cam:'mpin-cam',canvas:'mpin-canvas'}
   }
   const {vid:vidId,cam:camId,canvas:cnvId}=ids[ctx]
   const v=document.getElementById(vidId)
@@ -630,7 +722,7 @@ async function startSignInput(ctx){
   mpActive=true
 
   // Show detection panel
-  const dp=document.getElementById(ctx==='auth'?'sa-det':ctx+'-det')
+  const dp=document.getElementById(ctx==='auth'?'sa-det':(ctx+'-det'))
   if(dp)dp.classList.add('on')
 
   const canvas=document.getElementById(cnvId)
@@ -659,8 +751,8 @@ function stopAllSign(){
   mpActive=false;lastDigit=-1;holdStart=null
   if(holdInterval){clearInterval(holdInterval);holdInterval=null}
   if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}
-  ;['tr-vid','pin-vid','sa-vid'].forEach(id=>{const v=document.getElementById(id);if(v)v.srcObject=null})
-  ;['tr-canvas','pin-canvas','sa-canvas'].forEach(id=>{
+  ;['tr-vid','pin-vid','sa-vid','mpin-vid'].forEach(id=>{const v=document.getElementById(id);if(v)v.srcObject=null})
+  ;['tr-canvas','pin-canvas','sa-canvas','mpin-canvas'].forEach(id=>{
     const c=document.getElementById(id);if(!c)return
     const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height)
   })
@@ -670,7 +762,7 @@ function stopAllSign(){
 // ── Hand results callback ─────────────────────
 function onHandResults(res){
   if(!mpActive||!mpCtx)return
-  const cnvId=mpCtx==='auth'?'sa-canvas':mpCtx+'-canvas'
+  const cnvId=mpCtx==='auth'?'sa-canvas':(mpCtx+'-canvas')
   const canvas=document.getElementById(cnvId)
   if(!canvas)return
   const ctx2d=canvas.getContext('2d')
@@ -705,7 +797,7 @@ function onNoHand(){
 
 function tickHold(){
   if(!holdStart||lastDigit===-1)return
-  const holdMs=mpCtx==='auth'?HOLD_AUTH:HOLD_TR
+  const holdMs=mpCtx==='auth'?HOLD_AUTH:(mpCtx==='pin'||mpCtx==='mpin'?HOLD_PIN:HOLD_TR)
   const prog=Math.min((Date.now()-holdStart)/holdMs,1)
   setHoldUI(prog)
   if(prog>=1){
@@ -716,7 +808,7 @@ function tickHold(){
 
 // ── Draw hand skeleton ─────────────────────────
 function drawHand(c,lm,w,h){
-  const accent=mpCtx==='pin'?'#60A5FA':'#FBBF24'
+  const accent=(mpCtx==='pin'||mpCtx==='mpin')?'#60A5FA':'#FBBF24'
   // Connections
   c.strokeStyle='rgba(255,255,255,.3)';c.lineWidth=2
   HC.forEach(([a,b])=>{
@@ -771,6 +863,8 @@ function acceptDigit(digit){
     updTr()
   }else if(mpCtx==='pin'){
     if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),500))}
+  }else if(mpCtx==='mpin'){
+    if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}
   }
   flashConfirm()
 }
@@ -789,8 +883,8 @@ function setHoldUI(p){
   const ring=document.getElementById(pfx+'-ring')
   const ringTxt=document.getElementById(pfx+'-ring-txt')
   const rSvg=document.getElementById(pfx+'-ring-svg')
-  const bar=document.getElementById(pfx==='sa'?'sa-hold':mpCtx+'-hold')
-  const lbl=document.getElementById(pfx==='sa'?'sa-hold-lbl':mpCtx+'-hold-lbl')
+  const bar=document.getElementById(pfx==='sa'?'sa-hold':pfx+'-hold')
+  const lbl=document.getElementById(pfx==='sa'?'sa-hold-lbl':pfx+'-hold-lbl')
   const full=pfx==='sa'?264:207
 
   if(ring)ring.setAttribute('stroke-dasharray',`${p*full} ${full}`)
@@ -807,7 +901,7 @@ function setHoldUI(p){
 function updateDetEmoji(digit){
   const pfx=mpCtx==='auth'?'sa':mpCtx
   const emojiEl=document.getElementById(pfx+'-emoji')
-  const lblEl=document.getElementById(pfx==='sa'?'sa-lbl':mpCtx+'-det-lbl')
+  const lblEl=document.getElementById(pfx==='sa'?'sa-lbl':pfx+'-det-lbl')
   if(digit===-1){
     if(emojiEl)emojiEl.textContent='—'
     if(lblEl)lblEl.textContent='Show your hand to begin'
@@ -834,7 +928,7 @@ function updateDetEmoji(digit){
 
 // ── Fallback simulation ───────────────────────
 function showFallback(ctx){
-  if(ctx==='auth')return // auth uses skip button instead
+  if(ctx==='auth')return
   const fb=document.getElementById(ctx+'-fallback')
   const sgr=document.getElementById(ctx+'-sgr')
   if(fb)fb.style.display='block'
@@ -850,6 +944,7 @@ function hideFallback(ctx){
 function simSign(digit,ctx){
   if(ctx==='tr'){if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog();}updTr()}
   else if(ctx==='pin'){if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),400))}}
+  else if(ctx==='mpin'){if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}}
 }
 
 // ── Sign logs ─────────────────────────────────
@@ -873,7 +968,7 @@ const FLEX_SCR=new Set(['login','home'])
 
 function go(s){
   clr()
-  if(s!=='transfer'&&s!=='pin'&&s!=='sign-auth')stopAllSign()
+  if(s!=='transfer'&&s!=='pin'&&s!=='sign-auth'&&s!=='mpin')stopAllSign()
   document.querySelectorAll('.asc').forEach(e=>{e.classList.remove('on');e.style.display=''})
   const el=document.getElementById('s-'+s)
   if(el){
@@ -881,7 +976,7 @@ function go(s){
     el.style.display=FLEX_SCR.has(s)?'flex':'block'
   }
   window.scrollTo(0,0)
-  const map={passkey:initPk,face:initFace,'sign-auth':initSA,transfer:initTr,pin:initPin,success:initSuc}
+  const map={passkey:initPk,face:initFace,'sign-auth':initSA,transfer:initTr,pin:initPin,success:initSuc,mpin:initMpin}
   if(map[s])map[s]()
 }
 function chooseAuth(t){setTimeout(()=>go(t),160)}
@@ -972,6 +1067,38 @@ function updDots(){
     return `<div style="width:16px;height:16px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
   }).join('')
 }
+
+// ── mPIN (login) ─────────────────────────────
+function initMpin(){
+  mpin=[];mpinSign=false;mpinLog=[]
+  const det=document.getElementById('mpin-det');if(det)det.classList.remove('on')
+  setMpinMode(false);updMpinDots();updMpinLog()
+}
+function setMpinMode(s){
+  mpinSign=s
+  document.getElementById('mpin-kpad').style.display=s?'none':'block'
+  document.getElementById('mpin-sign').style.display=s?'block':'none'
+  document.getElementById('mpin-tk').className='tb'+(s?'':' ap')
+  document.getElementById('mpin-ts').className='tb'+(s?' as':'')
+  if(s)startSignInput('mpin');else stopAllSign()
+}
+function pMpin(k){
+  if(k==='⌫')mpin=mpin.slice(0,-1)
+  else if(mpin.length<4){mpin.push(k);if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}
+  updMpinDots()
+}
+function updMpinDots(){
+  document.getElementById('mpin-dots').innerHTML=Array.from({length:4},(_,i)=>{
+    const f=i<mpin.length
+    return `<div style="width:22px;height:22px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
+  }).join('')
+}
+function updMpinLog(){
+  const e=document.getElementById('mpin-log');if(!e)return
+  if(!mpinLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span>';return}
+  e.innerHTML=mpinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:2px"></div></div>`).join('')
+}
+function clrMpinLog(){mpinLog=[];mpin=[];updMpinLog();updMpinDots()}
 
 // ── Success ───────────────────────────────────
 function initSuc(){
