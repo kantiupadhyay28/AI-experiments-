@@ -303,60 +303,81 @@ button{font-family:inherit;cursor:pointer}
 
 <!-- ══ SIGN AUTH ══ -->
 <div id="s-sign-auth" class="asc" style="min-height:100dvh;background:var(--bg)">
-  <!-- Header -->
   <div class="nhdr">
     <button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
     <div style="flex:1">
       <div style="font-size:15px;font-weight:700">Sign Language Login</div>
-      <div style="font-size:11px;color:var(--mu)">Show your registered greeting sign</div>
+      <div style="font-size:11px;color:var(--mu)">Show your registered gesture</div>
     </div>
-    <span class="ai-badge">🤟 MediaPipe AI</span>
+    <span class="ai-badge">🤟 MediaPipe</span>
   </div>
 
-  <!-- Large camera view — full width, 4:3 -->
-  <div class="vf-auth">
+  <!-- Registered sign card -->
+  <div style="margin:12px 18px 0;background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.25);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+    <div style="width:48px;height:48px;border-radius:50%;background:rgba(217,119,6,.15);border:2px solid rgba(217,119,6,.3);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🤟</div>
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#D97706;text-transform:uppercase;margin-bottom:2px">Registered Sign</div>
+      <div style="font-size:13px;font-weight:700">ILY / 🤟 gesture</div>
+      <div style="font-size:10px;color:var(--mu);margin-top:1px">Hold any gesture 1.5 s to log in</div>
+    </div>
+  </div>
+
+  <!-- Camera — full width, tall -->
+  <div class="vf-auth" style="margin-top:12px;max-height:62dvh">
     <video id="sa-vid" autoplay muted playsinline></video>
     <canvas id="sa-canvas"></canvas>
+
+    <!-- Permission/loading state -->
     <div id="sa-cam" class="vfcam">
-      <div style="font-size:52px;margin-bottom:4px">🤟</div>
-      <div style="font-size:15px;font-weight:700;margin-bottom:4px">Sign Language Login</div>
-      <div style="font-size:11px;color:var(--mu);text-align:center;padding:0 32px;line-height:1.5">Show your hand in camera to authenticate with gesture recognition</div>
-      <div style="margin-top:12px;font-size:10px;color:rgba(255,255,255,.25)">Powered by Google MediaPipe</div>
+      <div style="font-size:48px;margin-bottom:6px">🤟</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px">Starting camera…</div>
+      <div style="font-size:11px;color:var(--mu);text-align:center;padding:0 28px;line-height:1.5">Allow camera access when prompted to use sign language login</div>
+      <div style="margin-top:14px;font-size:10px;color:rgba(255,255,255,.2)">Powered by Google MediaPipe</div>
     </div>
-    <!-- Hold ring - larger for auth -->
-    <svg id="sa-ring-svg" class="hold-ring" style="display:none" width="100" height="100" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="42" fill="rgba(0,0,0,.5)" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-      <circle id="sa-ring" cx="50" cy="50" r="42" fill="none" stroke="#FBBF24" stroke-width="5" stroke-dasharray="0 264" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:50px 50px;transition:stroke-dasharray .1s linear"/>
-      <text id="sa-ring-txt" x="50" y="58" text-anchor="middle" font-size="20" font-weight="800" fill="#fff"></text>
+
+    <!-- Live gesture overlay — shown when MediaPipe is active -->
+    <div id="sa-live-overlay" style="display:none;position:absolute;inset:0;z-index:4;pointer-events:none">
+      <!-- Gesture pill at top -->
+      <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-radius:28px;padding:8px 18px;border:1px solid rgba(255,255,255,.1)">
+        <span id="sa-emoji" style="font-size:34px;line-height:1">—</span>
+        <div>
+          <div id="sa-lbl" style="font-size:12px;font-weight:700;color:#fff;white-space:nowrap">Waiting for hand…</div>
+          <div id="sa-hold-lbl" style="font-size:10px;color:rgba(255,255,255,.55)"></div>
+        </div>
+      </div>
+      <!-- Hold bar at bottom of camera -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:0 14px 10px">
+        <div style="height:5px;border-radius:3px;background:rgba(255,255,255,.12)">
+          <div id="sa-hold" style="height:100%;border-radius:3px;width:0;transition:width .08s linear;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hold ring (centered, shows when gesture held) -->
+    <svg id="sa-ring-svg" class="hold-ring" style="display:none" width="130" height="130" viewBox="0 0 130 130">
+      <circle cx="65" cy="65" r="56" fill="rgba(0,0,0,.58)" stroke="rgba(255,255,255,.07)" stroke-width="5"/>
+      <circle id="sa-ring" cx="65" cy="65" r="56" fill="none" stroke="#FBBF24" stroke-width="6" stroke-dasharray="0 352" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:65px 65px;transition:stroke-dasharray .08s linear"/>
+      <text id="sa-ring-txt" x="65" y="76" text-anchor="middle" font-size="30" font-weight="900" fill="#fff"></text>
     </svg>
-    <!-- Auth success overlay -->
-    <div id="sa-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.15);align-items:center;justify-content:center;font-size:80px;z-index:6">✅</div>
+
+    <!-- Success overlay -->
+    <div id="sa-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.18);z-index:6;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+      <div style="font-size:72px">✅</div>
+      <div style="font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);padding:6px 22px;border-radius:22px">Sign verified!</div>
+    </div>
+
+    <!-- Camera blocked / iframe notice -->
+    <div id="sa-iframe-notice" style="display:none;position:absolute;inset:0;background:rgba(7,16,30,.96);z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;text-align:center">
+      <div style="font-size:44px">📵</div>
+      <div style="font-size:16px;font-weight:800;color:#fff">Camera blocked in preview</div>
+      <div style="font-size:12px;color:var(--mu);line-height:1.65;max-width:270px">Sign language login needs direct camera access. Open the app in its own tab or download the HTML file to run locally.</div>
+      <button onclick="window.open(window.location.href,'_blank')" style="padding:13px 0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;width:100%">🔗 Open in New Tab</button>
+      <button onclick="downloadApp()" style="padding:11px 0;border-radius:12px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);font-size:13px;font-weight:600;border:1px solid var(--bd);cursor:pointer;width:100%">📥 Download HTML File</button>
+      <button onclick="go('home')" style="padding:9px 0;border-radius:10px;background:transparent;color:rgba(255,255,255,.35);font-size:12px;font-weight:600;border:none;cursor:pointer;width:100%">Skip · Enter as demo</button>
+    </div>
   </div>
 
-  <!-- Gesture detection panel + controls -->
   <div style="padding:14px 18px">
-    <div id="sa-det" class="det-panel" style="background:rgba(217,119,6,.08);border-color:rgba(217,119,6,.2)">
-      <div id="sa-emoji" class="det-emoji" style="font-size:44px">🤟</div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span id="sa-lbl" style="font-size:13px;font-weight:700;color:#FBBF24">Detecting sign…</span>
-          <span id="sa-hold-lbl" style="font-size:11px;color:var(--gold)"></span>
-        </div>
-        <div class="cbt" style="height:6px"><div id="sa-hold" class="cbf" style="background:var(--gold);height:6px"></div></div>
-        <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:5px">Hold for 2 seconds to log in</div>
-      </div>
-    </div>
-
-    <!-- Confidence -->
-    <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-        <span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)">Recognition confidence</span>
-        <span id="sa-pct" style="font-size:11px;color:var(--gold);font-weight:700">—</span>
-      </div>
-      <div class="cbt"><div id="sa-fill" class="cbf" style="background:var(--gold)"></div></div>
-      <div id="sa-hint" style="font-size:11px;color:var(--mu);margin-top:8px">Show any hand sign · hold 2s to authenticate</div>
-    </div>
-
     <div style="display:flex;gap:10px">
       <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">← Back</button>
       <button onclick="go('home')" class="bacc" style="flex:1">Skip →</button>
@@ -632,7 +653,7 @@ let mpin=[],mpinSign=false,mpinLog=[]
 let mpHands=null,camStream=null
 let mpActive=false,mpCtx=null // 'tr' | 'pin' | 'auth'
 let lastDigit=-1,holdStart=null,holdInterval=null
-const HOLD_TR=1500,HOLD_PIN=1500,HOLD_AUTH=2000
+const HOLD_TR=1500,HOLD_PIN=1500,HOLD_AUTH=1500
 
 // Hand skeleton connections
 const HC=[
@@ -659,7 +680,7 @@ async function initMP(){
   try{
     await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js')
     mpHands=new Hands({locateFile:f=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/${f}`})
-    mpHands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:.7,minTrackingConfidence:.5})
+    mpHands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:.6,minTrackingConfidence:.4})
     mpHands.onResults(onHandResults)
     await mpHands.initialize()
     return true
@@ -686,7 +707,12 @@ async function startSignInput(ctx){
   const inIframe=window!==window.top
 
   if(!navigator.mediaDevices?.getUserMedia){
-    setCamNotice(cam,'📵','No camera API available')
+    if(ctx==='auth'){
+      const notice=document.getElementById('sa-iframe-notice')
+      if(notice)notice.style.display='flex'
+    }else{
+      setCamNotice(cam,'📵','No camera API available')
+    }
     return
   }
 
@@ -696,7 +722,11 @@ async function startSignInput(ctx){
   try{
     stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}}})
   }catch(e){
-    if(inIframe){
+    if(ctx==='auth'){
+      const notice=document.getElementById('sa-iframe-notice')
+      if(notice)notice.style.display='flex'
+      if(cam)cam.style.display='none'
+    }else if(inIframe){
       setCamNotice(cam,'📷','Camera unavailable in preview<br><span style="font-size:10px;color:rgba(255,255,255,.3)">Tap digits below to simulate · camera works in standalone</span>')
     }else{
       setCamNotice(cam,'🚫','Camera access denied<br><span style="font-size:10px;color:rgba(255,255,255,.3)">Allow camera in browser settings</span>')
@@ -721,9 +751,14 @@ async function startSignInput(ctx){
   hideFallback(ctx)
   mpActive=true
 
-  // Show detection panel
-  const dp=document.getElementById(ctx==='auth'?'sa-det':(ctx+'-det'))
-  if(dp)dp.classList.add('on')
+  // Show detection panel / live overlay
+  if(ctx==='auth'){
+    const ov=document.getElementById('sa-live-overlay')
+    if(ov)ov.style.display='block'
+  }else{
+    const dp=document.getElementById(ctx+'-det')
+    if(dp)dp.classList.add('on')
+  }
 
   const canvas=document.getElementById(cnvId)
   runLoop(v,canvas)
@@ -885,7 +920,7 @@ function setHoldUI(p){
   const rSvg=document.getElementById(pfx+'-ring-svg')
   const bar=document.getElementById(pfx==='sa'?'sa-hold':pfx+'-hold')
   const lbl=document.getElementById(pfx==='sa'?'sa-hold-lbl':pfx+'-hold-lbl')
-  const full=pfx==='sa'?264:207
+  const full=pfx==='sa'?352:207
 
   if(ring)ring.setAttribute('stroke-dasharray',`${p*full} ${full}`)
   if(ringTxt){ringTxt.textContent=p>0&&p<1?(SIGNS[lastDigit]||''):''}
@@ -908,21 +943,6 @@ function updateDetEmoji(digit){
   }else{
     if(emojiEl)emojiEl.textContent=SIGNS[digit]
     if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to log in with ${SIGNS[digit]}`:`Digit ${digit} — ${SIGNS[digit]}`
-  }
-  if(mpCtx==='auth'){
-    const pct=document.getElementById('sa-pct')
-    const fill=document.getElementById('sa-fill')
-    const hint=document.getElementById('sa-hint')
-    if(digit>=0){
-      const conf=Math.round(72+Math.random()*20)
-      if(pct)pct.textContent=conf+'%'
-      if(fill)fill.style.width=conf+'%'
-      if(hint)hint.textContent=`${SIGNS[digit]} detected · hold 2 seconds to authenticate`
-    }else{
-      if(pct)pct.textContent='—'
-      if(fill)fill.style.width='0'
-      if(hint)hint.textContent='Show any hand sign · hold 2s to authenticate'
-    }
   }
 }
 
@@ -1005,10 +1025,21 @@ function initFace(){
 function initSA(){
   const done=document.getElementById('sa-done')
   if(done)done.style.display='none'
-  document.getElementById('sa-fill').style.width='0'
-  document.getElementById('sa-pct').textContent='—'
-  const det=document.getElementById('sa-det');if(det)det.classList.remove('on')
+  const ov=document.getElementById('sa-live-overlay')
+  if(ov)ov.style.display='none'
+  const notice=document.getElementById('sa-iframe-notice')
+  if(notice)notice.style.display='none'
   startSignInput('auth')
+}
+
+function downloadApp(){
+  const html=document.documentElement.outerHTML
+  const blob=new Blob([html],{type:'text/html'})
+  const a=document.createElement('a')
+  a.href=URL.createObjectURL(blob)
+  a.download='banking-demo.html'
+  a.click()
+  URL.revokeObjectURL(a.href)
 }
 
 // ── Transfer ──────────────────────────────────
