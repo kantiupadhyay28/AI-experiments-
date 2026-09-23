@@ -31,7 +31,7 @@ button{font-family:inherit;cursor:pointer}
 .sb{position:absolute;top:0;left:0;right:0;z-index:20;padding:13px 22px 0;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#fff}
 .pc{padding-top:52px;height:720px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:var(--bg)}
 .pc::-webkit-scrollbar{display:none}
-.asc{display:none;animation:sup .22s ease both}.asc.on{display:block}
+.asc{display:none!important;animation:sup .22s ease both}.asc.on{display:block!important}
 .nhdr{display:flex;align-items:center;padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
 .nbk{background:rgba(255,255,255,.08);border:none;color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-right:10px;flex-shrink:0}
 .bacc{display:block;width:100%;padding:15px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;text-align:center}
@@ -404,45 +404,63 @@ async function initMP(){
 // ── Camera + sign start ───────────────────────
 async function startSignInput(ctx){
   mpCtx=ctx;lastDigit=-1;holdStart=null
+
+  // Always show simulation buttons immediately — camera is a background upgrade
+  showFallback(ctx)
+
   const ids={tr:{vid:'tr-vid',cam:'tr-cam',canvas:'tr-canvas'},pin:{vid:'pin-vid',cam:'pin-cam',canvas:'pin-canvas'},auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'}}
   const {vid:vidId,cam:camId,canvas:cnvId}=ids[ctx]
-
   const v=document.getElementById(vidId)
   const cam=document.getElementById(camId)
   if(!v)return
 
+  const inIframe=window!==window.top
+
   if(!navigator.mediaDevices?.getUserMedia){
-    cam.innerHTML='<span style="font-size:22px">📵</span><span style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;padding:0 12px">Camera API unavailable</span>'
-    showFallback(ctx);return
-  }
-  try{
-    const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}})
-    camStream=s;v.srcObject=s;await v.play()
-  }catch(e){
-    cam.innerHTML=`<span style="font-size:22px">📵</span><span style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;padding:0 12px">${e.name==='NotAllowedError'?'Camera denied':'Camera unavailable'}</span>`
-    showFallback(ctx);return
+    setCamNotice(cam,'📵','No camera API — using tap-to-sign')
+    return
   }
 
+  // Show attempting notice
+  cam.innerHTML='<div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:10px;color:rgba(255,255,255,.5)">Requesting camera…</span></div>'
+
+  let stream
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}})
+  }catch(e){
+    if(inIframe){
+      setCamNotice(cam,'📷','Camera unavailable in preview<br><span style="color:rgba(255,255,255,.3);font-size:9px">Tap digits below · works in standalone deployment</span>')
+    }else{
+      setCamNotice(cam,'📵','Camera access denied<br><span style="color:rgba(255,255,255,.3);font-size:9px">Allow in browser settings · using tap-to-sign</span>')
+    }
+    return
+  }
+
+  // Camera granted — upgrade to live view
+  camStream=stream;v.srcObject=stream;await v.play()
   cam.innerHTML='<div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1s ease-in-out infinite"></div><span style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">Loading gesture AI…</span></div>'
 
   const ok=await initMP()
   if(!ok){
     cam.style.display='none'
     addLiveTag(v,'LIVE · Camera')
-    showFallback(ctx);return
+    return
   }
 
+  // Full gesture AI active — hide simulation buttons, show detection panel
   cam.style.display='none'
   addLiveTag(v,'LIVE · Gesture AI 🤟')
+  hideFallback(ctx)
   mpActive=true
-  // show detection panel
   const dp=document.getElementById(ctx==='auth'?'sa-det':ctx+'-det')
   if(dp)dp.classList.add('on')
-  // start loop
   const canvas=document.getElementById(cnvId)
   runLoop(v,canvas)
-  // update hold bar at 60fps
   holdInterval=setInterval(()=>tickHold(),16)
+}
+
+function setCamNotice(cam,icon,msg){
+  cam.innerHTML=`<span style="font-size:20px">${icon}</span><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.55);text-align:center;padding:0 14px;line-height:1.6">${msg}</span>`
 }
 
 function addLiveTag(v,label){
@@ -666,6 +684,11 @@ function showFallback(ctx){
   if(sgr)sgr.innerHTML=[1,2,3,4,5,6,7,8,9,0].map(d=>`<button onclick="simSign(${d},'${ctx}')" style="height:44px;border-radius:8px;font-size:20px;background:rgba(255,255,255,.07);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center">${SIGNS[d]}</button>`).join('')
 }
 
+function hideFallback(ctx){
+  const fb=document.getElementById(ctx==='auth'?null:ctx+'-fallback')
+  if(fb)fb.style.display='none'
+}
+
 function simSign(digit,ctx){
   if(ctx==='tr'){if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog();}updTr()}
   else if(ctx==='pin'){if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),400))}}
@@ -686,11 +709,21 @@ function clrTrLog(){trLog=[];updTrLog()}
 
 // ── Router ────────────────────────────────────
 function clr(){timers.forEach(t=>{clearTimeout(t);clearInterval(t)});timers=[]}
+// Screens that use flex layout when visible
+const FLEX_SCR=new Set(['login','home'])
+// Set initial screen display (login starts with class "on" but needs inline flex)
+;(function(){const el=document.getElementById('s-login');if(el)el.style.display='flex'})()
 function go(s){
   clr()
   if(s!=='transfer'&&s!=='pin'&&s!=='sign-auth')stopAllSign()
-  document.querySelectorAll('.asc').forEach(e=>e.classList.remove('on'))
-  const el=document.getElementById('s-'+s);if(el)el.classList.add('on')
+  // Clear both class and any inline display so CSS !important hides them
+  document.querySelectorAll('.asc').forEach(e=>{e.classList.remove('on');e.style.display=''})
+  const el=document.getElementById('s-'+s)
+  if(el){
+    el.classList.add('on')
+    // Inline display must be set explicitly to override the initial inline style on each div
+    el.style.display=FLEX_SCR.has(s)?'flex':'block'
+  }
   const map={passkey:initPk,face:initFace,'sign-auth':initSA,transfer:initTr,pin:initPin,success:initSuc}
   if(map[s])map[s]()
 }
