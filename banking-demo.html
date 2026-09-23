@@ -370,10 +370,13 @@ button{font-family:inherit;cursor:pointer}
     <div id="sa-iframe-notice" style="display:none;position:absolute;inset:0;background:rgba(7,16,30,.96);z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;text-align:center">
       <div style="font-size:44px">📵</div>
       <div style="font-size:16px;font-weight:800;color:#fff">Camera blocked in preview</div>
-      <div style="font-size:12px;color:var(--mu);line-height:1.65;max-width:270px">Sign language login needs direct camera access. Open the app in its own tab or download the HTML file to run locally.</div>
-      <button onclick="window.open(window.location.href,'_blank')" style="padding:13px 0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;width:100%">🔗 Open in New Tab</button>
-      <button onclick="downloadApp()" style="padding:11px 0;border-radius:12px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);font-size:13px;font-weight:600;border:1px solid var(--bd);cursor:pointer;width:100%">📥 Download HTML File</button>
-      <button onclick="go('home')" style="padding:9px 0;border-radius:10px;background:transparent;color:rgba(255,255,255,.35);font-size:12px;font-weight:600;border:none;cursor:pointer;width:100%">Skip · Enter as demo</button>
+      <div style="font-size:12px;color:var(--mu);line-height:1.65;max-width:270px">Sign language login needs direct browser camera access. Open the standalone link below — camera works there.</div>
+      <a href="https://kantiupadhyay28.github.io/AI-experiments-/banking-demo.html" target="_blank" rel="noopener" style="display:block;padding:14px 0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:14px;text-align:center;text-decoration:none;width:100%">🔗 Open Standalone App →</a>
+      <div id="sa-url-row" style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.35);border-radius:10px;padding:10px 12px;width:100%">
+        <span style="font-size:10px;color:rgba(255,255,255,.4);flex:1;word-break:break-all;line-height:1.4">kantiupadhyay28.github.io/AI-experiments-/banking-demo.html</span>
+        <button onclick="navigator.clipboard?.writeText('https://kantiupadhyay28.github.io/AI-experiments-/banking-demo.html').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})" style="flex-shrink:0;padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;border:none;cursor:pointer">Copy</button>
+      </div>
+      <button onclick="go('home')" style="padding:9px 0;border-radius:10px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;font-weight:600;border:none;cursor:pointer;width:100%">Skip · continue as demo</button>
     </div>
   </div>
 
