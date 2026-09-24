@@ -189,7 +189,7 @@ button{font-family:inherit;cursor:pointer}
 <div id="s-mpin" class="asc" style="min-height:100dvh;background:var(--bg)">
   <div class="nhdr">
     <button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
-    <div style="flex:1"><div style="font-size:15px;font-weight:700">Enter mPIN</div><div style="font-size:11px;color:var(--mu)">4-digit mobile PIN</div></div>
+    <div style="flex:1"><div style="font-size:15px;font-weight:700">Enter mPIN</div><div id="mpin-sub" style="font-size:11px;color:var(--mu)">4-digit mobile PIN</div></div>
     <button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:600;cursor:pointer">Forgot?</button>
   </div>
 
@@ -305,13 +305,13 @@ button{font-family:inherit;cursor:pointer}
     <span class="ai-badge">🤟 MediaPipe</span>
   </div>
 
-  <!-- Registered sign card -->
+  <!-- Registration status card -->
   <div style="margin:12px 18px 0;background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.25);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px">
-    <div style="width:48px;height:48px;border-radius:50%;background:rgba(217,119,6,.15);border:2px solid rgba(217,119,6,.3);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0">🤟</div>
-    <div>
-      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#D97706;text-transform:uppercase;margin-bottom:2px">Registered Sign</div>
-      <div style="font-size:13px;font-weight:700">ILY / 🤟 gesture</div>
-      <div style="font-size:10px;color:var(--mu);margin-top:1px">Hold any gesture 1.5 s to log in</div>
+    <div style="width:44px;height:44px;border-radius:50%;background:rgba(217,119,6,.15);border:2px solid rgba(217,119,6,.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🖐️</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#D97706;text-transform:uppercase;margin-bottom:2px">Sign ID · Riya Sharma</div>
+      <div id="sa-card-t" style="font-size:13px;font-weight:700">Hand + secret sign</div>
+      <div id="sa-card-s" style="font-size:10px;color:var(--mu);margin-top:1px">Show your registered sign with the same hand · hold 1.5 s</div>
     </div>
   </div>
 
@@ -338,6 +338,10 @@ button{font-family:inherit;cursor:pointer}
           <div id="sa-hold-lbl" style="font-size:10px;color:rgba(255,255,255,.55)"></div>
         </div>
       </div>
+      <!-- Hand match chip -->
+      <div id="sa-match" style="display:none;position:absolute;bottom:24px;left:14px;align-items:center;gap:6px;background:rgba(0,0,0,.65);border-radius:14px;padding:5px 11px;font-size:11px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums">
+        <span id="sa-match-dot" style="width:7px;height:7px;border-radius:50%;background:#F59E0B"></span><span id="sa-match-t">Hand match —</span>
+      </div>
       <!-- Hold bar at bottom of camera -->
       <div style="position:absolute;bottom:0;left:0;right:0;padding:0 14px 10px">
         <div style="height:5px;border-radius:3px;background:rgba(255,255,255,.12)">
@@ -356,7 +360,24 @@ button{font-family:inherit;cursor:pointer}
     <!-- Success overlay -->
     <div id="sa-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.18);z-index:6;flex-direction:column;align-items:center;justify-content:center;gap:8px">
       <div style="font-size:72px">✅</div>
-      <div style="font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);padding:6px 22px;border-radius:22px">Sign verified!</div>
+      <div style="font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);padding:6px 22px;border-radius:22px">Hand and sign verified</div>
+    </div>
+
+    <!-- Rejected / locked overlay -->
+    <div id="sa-reject" style="display:none;position:absolute;inset:0;background:rgba(127,29,29,.62);z-index:7;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center">
+      <div style="font-size:52px">✋</div>
+      <div id="sa-rej-t" style="font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);padding:6px 18px;border-radius:20px">Not recognised</div>
+      <div id="sa-rej-s" style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.5"></div>
+      <div id="sa-rej-d" style="font-size:10px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums"></div>
+      <button id="sa-rej-b" onclick="go('mpin')" style="display:none;margin-top:8px;padding:12px 22px;border-radius:12px;background:#fff;color:#111827;font-size:14px;font-weight:700;border:none">Log in with mPIN</button>
+    </div>
+
+    <!-- Not set up overlay -->
+    <div id="sa-setup" style="display:none;position:absolute;inset:0;background:rgba(7,16,30,.96);z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px;text-align:center">
+      <div style="font-size:44px">🖐️</div>
+      <div style="font-size:16px;font-weight:700;color:#fff">Sign login isn't set up on this device</div>
+      <div style="font-size:12px;color:var(--mu);line-height:1.6;max-width:280px">Register your hand and a secret sign. You'll confirm it's you with your mPIN first.</div>
+      <button onclick="startEnrollFlow()" style="padding:14px 0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:14px;border:none;width:100%;max-width:280px">Register with mPIN</button>
     </div>
 
     <!-- Camera blocked / iframe notice -->
@@ -369,15 +390,66 @@ button{font-family:inherit;cursor:pointer}
         <span style="font-size:10px;color:rgba(255,255,255,.4);flex:1;word-break:break-all;line-height:1.4">kantiupadhyay28.github.io/AI-experiments-/banking-demo.html</span>
         <button onclick="navigator.clipboard?.writeText('https://kantiupadhyay28.github.io/AI-experiments-/banking-demo.html').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})" style="flex-shrink:0;padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;border:none;cursor:pointer">Copy</button>
       </div>
-      <button onclick="go('home')" style="padding:9px 0;border-radius:10px;background:transparent;color:rgba(255,255,255,.3);font-size:12px;font-weight:600;border:none;cursor:pointer;width:100%">Skip · continue as demo</button>
+      <button onclick="go('mpin')" style="padding:9px 0;border-radius:10px;background:transparent;color:rgba(255,255,255,.45);font-size:12px;font-weight:600;border:none;cursor:pointer;width:100%">Use mPIN instead</button>
     </div>
   </div>
 
   <div style="padding:14px 18px">
     <div style="display:flex;gap:10px">
       <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">← Back</button>
-      <button onclick="go('home')" class="bacc" style="flex:1">Skip →</button>
+      <button onclick="go('mpin')" class="bacc" style="flex:1">Use mPIN</button>
     </div>
+    <button id="sa-rereg" onclick="startEnrollFlow()" style="display:block;margin:12px auto 0;background:none;border:none;font-size:12px;color:var(--mu);text-decoration:underline;text-underline-offset:3px">Register a different hand or sign</button>
+  </div>
+</div>
+
+<!-- ══ SIGN ENROLL ══ -->
+<div id="s-sign-enroll" class="asc" style="min-height:100dvh;background:var(--bg)">
+  <div class="nhdr">
+    <button class="nbk" onclick="go('home')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div style="flex:1">
+      <div style="font-size:15px;font-weight:700">Register Sign Login</div>
+      <div style="font-size:11px;color:var(--mu)">Riya Sharma · saved on this device only</div>
+    </div>
+    <span class="ai-badge">🤟 MediaPipe</span>
+  </div>
+
+  <ol style="margin:12px 18px 0;padding:12px 14px 12px 32px;background:var(--bg3);border:1px solid var(--bd);border-radius:10px;font-size:11.5px;color:var(--txt2);line-height:1.7">
+    <li>Pick a sign only you know, like ✌️ or 🤙.</li>
+    <li>Use the hand you'll log in with.</li>
+    <li>Hold the sign up and move your hand slowly until the bar fills.</li>
+  </ol>
+
+  <div class="vf-auth" style="margin-top:12px;max-height:58dvh">
+    <video id="en-vid" autoplay muted playsinline></video>
+    <canvas id="en-canvas"></canvas>
+    <div id="en-cam" class="vfcam">
+      <div style="font-size:14px;font-weight:700">Starting camera…</div>
+    </div>
+    <div id="en-overlay" style="display:none;position:absolute;inset:0;z-index:4;pointer-events:none">
+      <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-radius:28px;padding:8px 18px;border:1px solid rgba(255,255,255,.1)">
+        <span id="en-emoji" style="font-size:30px;line-height:1">—</span>
+        <div>
+          <div id="en-lbl" style="font-size:12px;font-weight:700;color:#fff;white-space:nowrap">Show the sign you want to use</div>
+          <div id="en-sub" style="font-size:10px;color:rgba(255,255,255,.55)"></div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:0 14px 10px">
+        <div style="height:5px;border-radius:3px;background:rgba(255,255,255,.12)">
+          <div id="en-hold" style="height:100%;border-radius:3px;width:0;transition:width .08s linear;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div>
+        </div>
+      </div>
+    </div>
+    <div id="en-done" style="display:none;position:absolute;inset:0;background:rgba(7,16,30,.9);z-index:6;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center">
+      <div style="font-size:56px">✅</div>
+      <div style="font-size:15px;font-weight:700;color:#fff">Hand registered</div>
+      <div id="en-done-s" style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6"></div>
+    </div>
+  </div>
+
+  <div style="padding:14px 18px;display:flex;gap:10px">
+    <button id="en-cancel" onclick="go('home')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">Cancel</button>
+    <button id="en-try" onclick="go('sign-auth')" class="bacc" style="flex:1;display:none">Try sign login</button>
   </div>
 </div>
 
@@ -678,6 +750,42 @@ let mpHands=null,camStream=null
 let mpActive=false,mpCtx=null // 'tr' | 'pin' | 'auth'
 let lastDigit=-1,holdStart=null,holdInterval=null
 const HOLD_TR=1500,HOLD_PIN=1500,HOLD_AUTH=1500
+const PFX={auth:'sa',enroll:'en'}
+const pfxOf=c=>PFX[c]||c
+
+// ── Hand ID (per-customer hand geometry + secret sign) ──
+const CUST_ID='RS-4568',TPL_KEY='aark.signid.v1.'+CUST_ID
+const ENROLL_N=60,MAX_FAILS=3
+// Bone and palm segments; each is divided by palm length (wrist→middle knuckle) so distance to camera cancels out
+const BONES=[[0,1],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8],[9,10],[10,11],[11,12],[13,14],[14,15],[15,16],[17,18],[18,19],[19,20],[0,5],[0,13],[0,17],[5,9],[9,13],[13,17]]
+let tplMem=null,saTpl=null,authScores=[],authHand=null,authFails=0,authPaused=false,pendingEnroll=false,enr=null
+
+function loadTpl(){
+  try{const t=JSON.parse(localStorage.getItem(TPL_KEY)||'null');if(t&&t.v===1)return t}catch(e){}
+  return tplMem
+}
+function saveTpl(t){tplMem=t;try{localStorage.setItem(TPL_KEY,JSON.stringify(t));return true}catch(e){return false}}
+
+function handFeatures(res){
+  const w=res.multiHandWorldLandmarks&&res.multiHandWorldLandmarks[0]
+  let P
+  if(w&&w.length===21)P=w
+  else{
+    const lm=res.multiHandLandmarks[0],img=res.image||{}
+    const ar=(img.videoWidth||img.width||16)/(img.videoHeight||img.height||9)
+    P=lm.map(q=>({x:q.x*ar,y:q.y,z:q.z*ar}))
+  }
+  const d=(a,b)=>Math.hypot(P[a].x-P[b].x,P[a].y-P[b].y,P[a].z-P[b].z)
+  const palm=d(0,9)
+  return palm>0?BONES.map(([a,b])=>d(a,b)/palm):null
+}
+function matchScore(f,t){
+  let s=0
+  for(let i=0;i<f.length;i++){const z=(f[i]-t.mu[i])/t.sd[i];s+=z*z}
+  return Math.sqrt(s/f.length)
+}
+// MediaPipe labels handedness for mirrored images; the raw front-camera feed isn't mirrored
+const handName=l=>l==='Left'?'Right':l==='Right'?'Left':'—'
 
 // Hand skeleton connections
 const HC=[
@@ -721,12 +829,14 @@ async function startSignInput(ctx){
     tr:{vid:'tr-vid',cam:'tr-cam',canvas:'tr-canvas'},
     pin:{vid:'pin-vid',cam:'pin-cam',canvas:'pin-canvas'},
     auth:{vid:'sa-vid',cam:'sa-cam',canvas:'sa-canvas'},
-    mpin:{vid:'mpin-vid',cam:'mpin-cam',canvas:'mpin-canvas'}
+    mpin:{vid:'mpin-vid',cam:'mpin-cam',canvas:'mpin-canvas'},
+    enroll:{vid:'en-vid',cam:'en-cam',canvas:'en-canvas'}
   }
   const {vid:vidId,cam:camId,canvas:cnvId}=ids[ctx]
   const v=document.getElementById(vidId)
   const cam=document.getElementById(camId)
   if(!v)return
+  cam.style.display=''
 
   const inIframe=window!==window.top
 
@@ -750,6 +860,8 @@ async function startSignInput(ctx){
       const notice=document.getElementById('sa-iframe-notice')
       if(notice)notice.style.display='flex'
       if(cam)cam.style.display='none'
+    }else if(ctx==='enroll'){
+      setCamNotice(cam,'📵',inIframe?'Camera blocked in preview<br><span style="font-size:10px;color:rgba(255,255,255,.35)">Open the standalone app to register</span>':'Camera access denied<br><span style="font-size:10px;color:rgba(255,255,255,.35)">Allow camera in browser settings</span>')
     }else if(inIframe){
       setCamNotice(cam,'📷','Camera unavailable in preview<br><span style="font-size:10px;color:rgba(255,255,255,.3)">Tap digits below to simulate · camera works in standalone</span>')
     }else{
@@ -776,8 +888,8 @@ async function startSignInput(ctx){
   mpActive=true
 
   // Show detection panel / live overlay
-  if(ctx==='auth'){
-    const ov=document.getElementById('sa-live-overlay')
+  if(ctx==='auth'||ctx==='enroll'){
+    const ov=document.getElementById(ctx==='auth'?'sa-live-overlay':'en-overlay')
     if(ov)ov.style.display='block'
   }else{
     const dp=document.getElementById(ctx+'-det')
@@ -794,7 +906,8 @@ function setCamNotice(cam,icon,msg){
 }
 
 function addLiveTag(v,label){
-  const d=document.createElement('div')
+  v.parentElement.querySelectorAll('.live-tag').forEach(e=>e.remove())
+  const d=document.createElement('div');d.className='live-tag'
   d.style.cssText='position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.65);border-radius:20px;padding:5px 12px;z-index:6'
   d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulse 1.2s ease-in-out infinite"></div><span style="font-size:11px;font-weight:700;color:#fff">${label}</span>`
   v.parentElement.appendChild(d)
@@ -810,8 +923,8 @@ function stopAllSign(){
   mpActive=false;lastDigit=-1;holdStart=null
   if(holdInterval){clearInterval(holdInterval);holdInterval=null}
   if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}
-  ;['tr-vid','pin-vid','sa-vid','mpin-vid'].forEach(id=>{const v=document.getElementById(id);if(v)v.srcObject=null})
-  ;['tr-canvas','pin-canvas','sa-canvas','mpin-canvas'].forEach(id=>{
+  ;['tr-vid','pin-vid','sa-vid','mpin-vid','en-vid'].forEach(id=>{const v=document.getElementById(id);if(v)v.srcObject=null})
+  ;['tr-canvas','pin-canvas','sa-canvas','mpin-canvas','en-canvas'].forEach(id=>{
     const c=document.getElementById(id);if(!c)return
     const ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height)
   })
@@ -821,7 +934,7 @@ function stopAllSign(){
 // ── Hand results callback ─────────────────────
 function onHandResults(res){
   if(!mpActive||!mpCtx)return
-  const cnvId=mpCtx==='auth'?'sa-canvas':(mpCtx+'-canvas')
+  const cnvId=pfxOf(mpCtx)+'-canvas'
   const canvas=document.getElementById(cnvId)
   if(!canvas)return
   const ctx2d=canvas.getContext('2d')
@@ -830,6 +943,8 @@ function onHandResults(res){
   ctx2d.clearRect(0,0,canvas.width,canvas.height)
 
   if(!res.multiHandLandmarks||!res.multiHandLandmarks.length){
+    if(mpCtx==='enroll'){enrollFrame(-1,null,null);return}
+    if(mpCtx==='auth')setMatchUI(null)
     onNoHand();return
   }
 
@@ -837,13 +952,21 @@ function onHandResults(res){
   drawHand(ctx2d,lm,canvas.width,canvas.height)
 
   const digit=classifyASL(lm)
+  const hand=res.multiHandedness&&res.multiHandedness[0]&&res.multiHandedness[0].label
+  if(mpCtx==='enroll'){enrollFrame(digit,handFeatures(res),hand);return}
+  if(mpCtx==='auth'&&authPaused)return
   if(digit===-1){onNoHand();return}
 
   updateDetEmoji(digit)
 
   if(digit!==lastDigit){
-    lastDigit=digit;holdStart=Date.now()
+    lastDigit=digit;holdStart=Date.now();authScores=[]
     setHoldUI(0)
+  }
+  if(mpCtx==='auth'&&saTpl){
+    const f=handFeatures(res)
+    authHand=hand
+    if(f){const s=matchScore(f,saTpl);authScores.push(s);setMatchUI(s)}
   }
 }
 
@@ -910,12 +1033,7 @@ function classifyASL(lm){
 
 // ── Accept confirmed gesture ──────────────────
 function acceptDigit(digit){
-  if(mpCtx==='auth'){
-    const done=document.getElementById('sa-done')
-    if(done){done.style.display='flex';done.style.alignItems='center';done.style.justifyContent='center'}
-    timers.push(setTimeout(()=>go('home'),800))
-    return
-  }
+  if(mpCtx==='auth'){authDecide(digit);return}
   if(mpCtx==='tr'){
     if(digit===5&&trAmt.length>0){trAmt=trAmt.slice(0,-1)}
     else if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog()}
@@ -923,9 +1041,96 @@ function acceptDigit(digit){
   }else if(mpCtx==='pin'){
     if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),500))}
   }else if(mpCtx==='mpin'){
-    if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}
+    if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(afterMpin,400))}
   }
   flashConfirm()
+}
+
+function authDecide(digit){
+  const t=saTpl
+  const sc=authScores.slice().sort((a,b)=>a-b)
+  const med=sc.length?sc[sc.length>>1]:Infinity
+  const ok=!!t&&digit===t.sign&&authHand===t.hand&&sc.length>=8&&med<=t.thr
+  authScores=[]
+  if(ok){
+    authFails=0
+    const done=document.getElementById('sa-done')
+    if(done)done.style.display='flex'
+    timers.push(setTimeout(()=>go('home'),900))
+    return
+  }
+  authFails++
+  const left=MAX_FAILS-authFails
+  document.getElementById('sa-rej-d').textContent=isFinite(med)&&t?`match score ${med.toFixed(2)} · limit ${t.thr.toFixed(2)}`:''
+  if(left<=0){showLocked();return}
+  showReject('Sign or hand not recognised',`${left} attempt${left===1?'':'s'} left`,false)
+  authPaused=true
+  timers.push(setTimeout(()=>{hideEl('sa-reject');authPaused=false;lastDigit=-1;holdStart=null;setHoldUI(0)},1800))
+}
+function showReject(title,sub,withBtn){
+  document.getElementById('sa-rej-t').textContent=title
+  document.getElementById('sa-rej-s').textContent=sub
+  document.getElementById('sa-rej-b').style.display=withBtn?'block':'none'
+  document.getElementById('sa-reject').style.display='flex'
+}
+function showLocked(){
+  stopAllSign()
+  showReject('Sign login locked','Too many attempts. Log in with your mPIN to unlock.',true)
+}
+function setMatchUI(s){
+  const chip=document.getElementById('sa-match');if(!chip)return
+  if(s==null||!saTpl){chip.style.display='none';return}
+  const pct=Math.round(100*Math.max(0,1-s/(2*saTpl.thr)))
+  chip.style.display='flex'
+  document.getElementById('sa-match-t').textContent=`Hand match ${pct}%`
+  document.getElementById('sa-match-dot').style.background=s<=saTpl.thr?'#22C55E':'#F59E0B'
+}
+const hideEl=id=>{const e=document.getElementById(id);if(e)e.style.display='none'}
+
+// ── Enrollment ────────────────────────────────
+function startEnrollFlow(){pendingEnroll=true;go('mpin')}
+function afterMpin(){authFails=0;const e=pendingEnroll;pendingEnroll=false;go(e?'sign-enroll':'home')}
+function initEnroll(){
+  enr={sign:-1,hand:null,frames:[],miss:0,done:false}
+  hideEl('en-done');hideEl('en-overlay');hideEl('en-try')
+  document.getElementById('en-hold').style.width='0'
+  document.getElementById('en-cancel').textContent='Cancel'
+  startSignInput('enroll')
+}
+function enrollFrame(digit,f,hand){
+  if(!enr||enr.done)return
+  const em=document.getElementById('en-emoji'),lb=document.getElementById('en-lbl'),sb=document.getElementById('en-sub')
+  if(digit===-1||!f){
+    if(!enr.frames.length){em.textContent='—';lb.textContent='Show the sign you want to use';sb.textContent=''}
+    return
+  }
+  if(digit!==enr.sign||hand!==enr.hand){
+    // tolerate brief classifier flicker; restart only if the sign really changed
+    if(enr.frames.length&&++enr.miss<12)return
+    enr.sign=digit;enr.hand=hand;enr.frames=[];enr.miss=0
+  }else enr.miss=0
+  enr.frames.push(f)
+  em.textContent=SIGNS[digit]
+  lb.textContent=`Capturing ${SIGNS[digit]} · ${handName(hand)} hand`
+  sb.textContent='Move your hand slowly · keep the same sign'
+  document.getElementById('en-hold').style.width=(100*enr.frames.length/ENROLL_N)+'%'
+  if(enr.frames.length>=ENROLL_N)finishEnroll()
+}
+function finishEnroll(){
+  enr.done=true
+  const F=enr.frames,n=F.length,k=F[0].length
+  const mu=Array.from({length:k},(_,i)=>F.reduce((s,f)=>s+f[i],0)/n)
+  // floor the spread: one session under-represents day-to-day variation (light, angle, distance)
+  const sd=mu.map((m,i)=>Math.max(Math.sqrt(F.reduce((s,f)=>s+(f[i]-m)**2,0)/n),m*.03,.004))
+  const tpl={v:1,sign:enr.sign,hand:enr.hand,mu,sd,thr:0,at:Date.now()}
+  const g=F.map(f=>matchScore(f,tpl)).sort((a,b)=>a-b)
+  tpl.thr=Math.min(2.6,Math.max(1.8,g[Math.floor(n*.9)]*1.6))
+  const saved=saveTpl(tpl)
+  stopAllSign()
+  document.getElementById('en-done-s').innerHTML=`Secret sign ${SIGNS[tpl.sign]} · ${handName(tpl.hand)} hand<br>${saved?'Saved on this device':'Saved for this session only (storage is blocked)'}`
+  document.getElementById('en-done').style.display='flex'
+  document.getElementById('en-try').style.display='block'
+  document.getElementById('en-cancel').textContent='Done'
 }
 
 function flashConfirm(){
@@ -938,7 +1143,7 @@ function flashConfirm(){
 // ── Hold UI ───────────────────────────────────
 function setHoldUI(p){
   if(!mpCtx)return
-  const pfx=mpCtx==='auth'?'sa':mpCtx
+  const pfx=pfxOf(mpCtx)
   const ring=document.getElementById(pfx+'-ring')
   const ringTxt=document.getElementById(pfx+'-ring-txt')
   const rSvg=document.getElementById(pfx+'-ring-svg')
@@ -958,7 +1163,7 @@ function setHoldUI(p){
 }
 
 function updateDetEmoji(digit){
-  const pfx=mpCtx==='auth'?'sa':mpCtx
+  const pfx=pfxOf(mpCtx)
   const emojiEl=document.getElementById(pfx+'-emoji')
   const lblEl=document.getElementById(pfx==='sa'?'sa-lbl':pfx+'-det-lbl')
   if(digit===-1){
@@ -966,7 +1171,7 @@ function updateDetEmoji(digit){
     if(lblEl)lblEl.textContent='Show your hand to begin'
   }else{
     if(emojiEl)emojiEl.textContent=SIGNS[digit]
-    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to log in with ${SIGNS[digit]}`:`Digit ${digit} — ${SIGNS[digit]}`
+    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to verify ${SIGNS[digit]}`:`Digit ${digit} — ${SIGNS[digit]}`
   }
 }
 
@@ -988,7 +1193,7 @@ function hideFallback(ctx){
 function simSign(digit,ctx){
   if(ctx==='tr'){if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog();}updTr()}
   else if(ctx==='pin'){if(pin.length<6){pin.push(String(digit));pinLog.push(digit);updPinLog();updDots();if(pin.length===6)timers.push(setTimeout(()=>go('success'),400))}}
-  else if(ctx==='mpin'){if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}}
+  else if(ctx==='mpin'){if(mpin.length<4){mpin.push(String(digit));mpinLog.push(digit);updMpinLog();updMpinDots();if(mpin.length===4)timers.push(setTimeout(afterMpin,400))}}
 }
 
 // ── Sign logs ─────────────────────────────────
@@ -1012,7 +1217,7 @@ const FLEX_SCR=new Set(['login','home'])
 
 function go(s){
   clr()
-  if(s!=='transfer'&&s!=='pin'&&s!=='sign-auth'&&s!=='mpin')stopAllSign()
+  stopAllSign()
   document.querySelectorAll('.asc').forEach(e=>{e.classList.remove('on');e.style.display=''})
   const el=document.getElementById('s-'+s)
   if(el){
@@ -1020,7 +1225,7 @@ function go(s){
     el.style.display=FLEX_SCR.has(s)?'flex':'block'
   }
   window.scrollTo(0,0)
-  const map={passkey:initPk,face:initFace,'sign-auth':initSA,transfer:initTr,pin:initPin,success:initSuc,mpin:initMpin}
+  const map={passkey:initPk,face:initFace,'sign-auth':initSA,'sign-enroll':initEnroll,transfer:initTr,pin:initPin,success:initSuc,mpin:initMpin}
   if(map[s])map[s]()
 }
 function chooseAuth(t){setTimeout(()=>go(t),160)}
@@ -1047,12 +1252,14 @@ function initFace(){
   },60);timers.push(t)
 }
 function initSA(){
-  const done=document.getElementById('sa-done')
-  if(done)done.style.display='none'
-  const ov=document.getElementById('sa-live-overlay')
-  if(ov)ov.style.display='none'
-  const notice=document.getElementById('sa-iframe-notice')
-  if(notice)notice.style.display='none'
+  ;['sa-done','sa-live-overlay','sa-iframe-notice','sa-reject','sa-setup','sa-match'].forEach(hideEl)
+  authScores=[];authPaused=false;authHand=null
+  saTpl=loadTpl()
+  document.getElementById('sa-rereg').style.display=saTpl?'block':'none'
+  document.getElementById('sa-card-t').textContent=saTpl?`Hand + secret sign · ${handName(saTpl.hand)} hand`:'Not set up'
+  document.getElementById('sa-card-s').textContent=saTpl?'Show your registered sign with the same hand · hold 1.5 s':'Register once with your mPIN to use sign login'
+  if(!saTpl){document.getElementById('sa-setup').style.display='flex';document.getElementById('sa-cam').style.display='none';return}
+  if(authFails>=MAX_FAILS){showLocked();return}
   startSignInput('auth')
 }
 
@@ -1126,6 +1333,7 @@ function updDots(){
 // ── mPIN (login) ─────────────────────────────
 function initMpin(){
   mpin=[];mpinSign=false;mpinLog=[]
+  document.getElementById('mpin-sub').textContent=pendingEnroll?'Confirm it\'s you to register sign login':'4-digit mobile PIN'
   const det=document.getElementById('mpin-det');if(det)det.classList.remove('on')
   setMpinMode(false);updMpinDots();updMpinLog()
 }
@@ -1139,7 +1347,7 @@ function setMpinMode(s){
 }
 function pMpin(k){
   if(k==='⌫')mpin=mpin.slice(0,-1)
-  else if(mpin.length<4){mpin.push(k);if(mpin.length===4)timers.push(setTimeout(()=>go('home'),400))}
+  else if(mpin.length<4){mpin.push(k);if(mpin.length===4)timers.push(setTimeout(afterMpin,400))}
   updMpinDots()
 }
 function updMpinDots(){
