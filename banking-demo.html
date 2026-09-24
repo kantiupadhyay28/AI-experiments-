@@ -14,7 +14,7 @@
   --bd:rgba(255,255,255,.09);
   --txt:#fff;--txt2:rgba(255,255,255,.65);--mu:rgba(255,255,255,.35);
   --ts:#111827;--t2s:#4B5563;--ms:#9CA3AF;
-  --acc:#4B70FF;--acc2:#3A5AE8;--red:#E31837;
+  --acc:#004C8F;--acc2:#003A70;--acc-t:#6AAEF0;--red:#ED232A;
   --ok:#22C55E;--ok-l:rgba(34,197,94,.12);
   --gold:#D97706;--gold-l:rgba(217,119,6,.1);
   --cam:#070F1E;--yel:#F59E0B;--tel:#10B981;--pnk:#EC4899;
@@ -34,7 +34,7 @@ button{font-family:inherit;cursor:pointer}
 @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes sup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes tok{from{opacity:0;transform:translateY(5px)scale(.85)}to{opacity:1;transform:none}}
-@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(75,112,255,.3)}50%{box-shadow:0 0 0 8px rgba(75,112,255,.05)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(106,174,240,.3)}50%{box-shadow:0 0 0 8px rgba(106,174,240,.05)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ── Screen visibility ── */
@@ -46,13 +46,13 @@ button{font-family:inherit;cursor:pointer}
 .nbk{background:rgba(255,255,255,.08);border:none;color:#fff;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0}
 
 /* ── Buttons ── */
-.bacc{display:block;width:100%;padding:15px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;text-align:center}
+.bacc{display:block;width:100%;padding:15px;border-radius:12px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;border:none;text-align:center;box-shadow:inset 0 0 0 1px rgba(106,174,240,.35)}
 .bacc:hover{background:var(--acc2)}
 
 /* ── Keypad ── */
 .kpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .kb{height:56px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid var(--bd);font-size:20px;font-weight:600;color:var(--txt)}
-.kb:active{background:rgba(75,112,255,.25)}
+.kb:active{background:rgba(106,174,240,.25)}
 .kb.del{font-size:18px;color:var(--txt2)}
 .kb.gh{opacity:0;pointer-events:none;background:transparent;border-color:transparent}
 
@@ -111,7 +111,7 @@ button{font-family:inherit;cursor:pointer}
 <div id="s-login" class="asc on" style="min-height:100dvh;display:flex;flex-direction:column;background:#F0F2FA">
   <!-- Header -->
   <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #E5E7EB">
-    <div style="display:inline-flex;align-items:center;gap:6px;background:#E31837;border-radius:6px;padding:6px 10px 6px 7px">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:var(--red);border-radius:6px;padding:6px 10px 6px 7px">
       <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="1" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="1" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
       <span style="font-size:12px;font-weight:800;color:#fff;letter-spacing:.06em">HDFC BANK</span>
     </div>
@@ -130,11 +130,11 @@ button{font-family:inherit;cursor:pointer}
 
   <!-- QR scan hero -->
   <div style="background:#fff;padding:22px 18px 26px;display:flex;flex-direction:column;align-items:center">
-    <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(91,81,248,.25);background:rgba(91,81,248,.06);display:flex;align-items:center;justify-content:center;margin-bottom:10px;animation:glow 3s ease-in-out infinite">
-      <svg width="36" height="36" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><rect x="19" y="4" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><rect x="4" y="19" width="9" height="9" rx="2" stroke="#5B51F8" stroke-width="2"/><line x1="19" y1="19" x2="28" y2="19" stroke="#5B51F8" stroke-width="2"/><line x1="23.5" y1="19" x2="23.5" y2="28" stroke="#5B51F8" stroke-width="2"/><line x1="19" y1="23.5" x2="19" y2="28" stroke="#5B51F8" stroke-width="2"/></svg>
+    <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(0,76,143,.25);background:rgba(0,76,143,.06);display:flex;align-items:center;justify-content:center;margin-bottom:10px;animation:glow 3s ease-in-out infinite">
+      <svg width="36" height="36" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="9" height="9" rx="2" stroke="#004C8F" stroke-width="2"/><rect x="19" y="4" width="9" height="9" rx="2" stroke="#004C8F" stroke-width="2"/><rect x="4" y="19" width="9" height="9" rx="2" stroke="#004C8F" stroke-width="2"/><line x1="19" y1="19" x2="28" y2="19" stroke="#004C8F" stroke-width="2"/><line x1="23.5" y1="19" x2="23.5" y2="28" stroke="#004C8F" stroke-width="2"/><line x1="19" y1="23.5" x2="19" y2="28" stroke="#004C8F" stroke-width="2"/></svg>
     </div>
     <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px">Scan & pay</div>
-    <div style="width:200px;height:1px;background:linear-gradient(90deg,transparent,rgba(91,81,248,.35),transparent);margin-bottom:10px"></div>
+    <div style="width:200px;height:1px;background:linear-gradient(90deg,transparent,rgba(0,76,143,.35),transparent);margin-bottom:10px"></div>
     <div style="font-size:11px;font-style:italic;color:#9CA3AF;text-align:center;line-height:1.5">No login required. You can access all features with ease</div>
   </div>
 
@@ -151,7 +151,7 @@ button{font-family:inherit;cursor:pointer}
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:7px;position:relative">
         <div style="width:54px;height:54px;border-radius:50%;background:#FCE7F3;display:flex;align-items:center;justify-content:center;font-size:22px">🏷️</div>
-        <div style="position:absolute;top:-2px;right:0;width:10px;height:10px;border-radius:50%;background:#E31837;border:2px solid #fff"></div>
+        <div style="position:absolute;top:-2px;right:0;width:10px;height:10px;border-radius:50%;background:var(--red);border:2px solid #fff"></div>
         <span style="font-size:11px;color:#374151;font-weight:500">Open A/C</span>
       </div>
     </div>
@@ -160,7 +160,7 @@ button{font-family:inherit;cursor:pointer}
   <!-- Auth methods -->
   <div style="flex:1;padding:18px 18px 8px;display:flex;flex-direction:column;gap:10px">
     <!-- Touch ID (primary) -->
-    <button onclick="chooseAuth('passkey')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:14px;background:#2B4BDA;color:#fff;font-size:15px;font-weight:700;border:none;box-shadow:0 4px 16px rgba(43,75,218,.35)">
+    <button onclick="chooseAuth('passkey')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:14px;background:#004C8F;color:#fff;font-size:15px;font-weight:700;border:none;box-shadow:0 4px 16px rgba(0,76,143,.35)">
       Login with Touch ID
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9.5" rx="3.5" ry="4.5" stroke="#fff" stroke-width="1.8"/><path d="M6.5 9.5C6.5 6.5 9 4 12 4s5.5 2.5 5.5 5.5c0 3.5-1.2 6-3.5 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M4.5 11c.5-4 3.5-7 7.5-7s7 3 7.5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9 9.5c0-1.7 1.3-3 3-3s3 1.3 3 3c0 3.2-1.2 5.5-3 7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
     </button>
@@ -179,8 +179,8 @@ button{font-family:inherit;cursor:pointer}
 
     <!-- mPIN link row -->
     <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 2px">
-      <button onclick="go('mpin')" style="background:none;border:none;font-size:13px;color:#2B4BDA;font-weight:600;padding:0;cursor:pointer">Or, enter your mPIN</button>
-      <button style="background:none;border:none;font-size:13px;color:#2B4BDA;font-weight:600;padding:0;cursor:pointer">Forgot mPIN?</button>
+      <button onclick="go('mpin')" style="background:none;border:none;font-size:13px;color:#004C8F;font-weight:600;padding:0;cursor:pointer">Or, enter your mPIN</button>
+      <button style="background:none;border:none;font-size:13px;color:#004C8F;font-weight:600;padding:0;cursor:pointer">Forgot mPIN?</button>
     </div>
   </div>
 
@@ -197,7 +197,7 @@ button{font-family:inherit;cursor:pointer}
   <div class="nhdr">
     <button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button>
     <div style="flex:1"><div style="font-size:15px;font-weight:700">Enter mPIN</div><div style="font-size:11px;color:var(--mu)">4-digit mobile PIN</div></div>
-    <button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:600;cursor:pointer">Forgot?</button>
+    <button style="font-size:12px;color:var(--acc-t);background:none;border:none;font-weight:600;cursor:pointer">Forgot?</button>
   </div>
 
   <div style="padding:16px 18px">
@@ -268,8 +268,8 @@ button{font-family:inherit;cursor:pointer}
       <div style="font-size:10px;color:var(--mu);text-align:center;margin-bottom:12px">Show digit · hold 1.5s to confirm</div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
-      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(160,185,255,.9)">End-to-end encrypted · PIN never stored</span>
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(106,174,240,.08);border-radius:8px;border:1px solid rgba(106,174,240,.15)">
+      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(170,208,245,.9)">End-to-end encrypted · PIN never stored</span>
     </div>
   </div>
 </div>
@@ -282,7 +282,7 @@ button{font-family:inherit;cursor:pointer}
     <div style="font-size:16px;font-weight:700;margin-bottom:6px">Signing you in…</div>
     <div id="pk-lbl" style="font-size:13px;color:var(--mu);margin-bottom:36px">Authenticating… 0%</div>
     <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:24px;text-align:left"><div style="font-size:10px;font-weight:700;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px">AUTHENTICATING AS</div><div style="font-size:14px;font-weight:700">Riya Sharma</div><div style="font-size:11.5px;color:var(--mu)">Cust ID: ••••4568</div></div>
-    <button onclick="go('login')" style="width:100%;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">Use a different method</button>
+    <button onclick="go('login')" style="width:100%;padding:13px;border-radius:12px;background:transparent;color:var(--acc-t);font-size:14px;font-weight:600;border:1.5px solid rgba(106,174,240,.35)">Use a different method</button>
   </div>
 </div>
 
@@ -291,13 +291,13 @@ button{font-family:inherit;cursor:pointer}
   <div class="nhdr"><button class="nbk" onclick="go('login')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></button><div><div style="font-size:15px;font-weight:700">Face ID</div><div style="font-size:11px;color:var(--mu)">Hold steady · look at camera</div></div></div>
   <div style="padding:18px">
     <div style="background:var(--cam);position:relative;overflow:hidden;aspect-ratio:1;width:100%;max-width:360px;margin:0 auto 16px;border:1px solid var(--bd);border-radius:20px">
-      <div id="face-oval" style="position:absolute;top:44%;left:50%;transform:translate(-50%,-54%);width:150px;height:188px;border-radius:50%;border:3px solid var(--acc);box-shadow:0 0 28px rgba(75,112,255,.25);animation:pulse 2s ease-in-out infinite;z-index:3"></div>
-      <div id="face-scan" style="position:absolute;left:18%;right:18%;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:.7;animation:scan 2.5s ease-in-out infinite;z-index:3"></div>
-      <div id="face-live" style="display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--acc);font-weight:700;z-index:5">Liveness: Blink detected ✓</div>
+      <div id="face-oval" style="position:absolute;top:44%;left:50%;transform:translate(-50%,-54%);width:150px;height:188px;border-radius:50%;border:3px solid var(--acc-t);box-shadow:0 0 28px rgba(106,174,240,.25);animation:pulse 2s ease-in-out infinite;z-index:3"></div>
+      <div id="face-scan" style="position:absolute;left:18%;right:18%;height:2px;background:linear-gradient(90deg,transparent,var(--acc-t),transparent);opacity:.7;animation:scan 2.5s ease-in-out infinite;z-index:3"></div>
+      <div id="face-live" style="display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--acc-t);font-weight:700;z-index:5">Liveness: Blink detected ✓</div>
       <div id="face-done" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.1);align-items:center;justify-content:center;font-size:48px;z-index:5">✅</div>
     </div>
     <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:14px 16px;margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)">Match confidence</span><span id="face-pct" style="font-size:11px;color:var(--acc);font-weight:700">0%</span></div><div class="cbt"><div id="face-fill" class="cbf" style="background:var(--acc)"></div></div><div id="face-st" style="font-size:11.5px;color:var(--mu);margin-top:8px">Verifying your identity…</div></div>
-    <div style="background:rgba(75,112,255,.08);border-radius:8px;padding:10px 14px;font-size:11.5px;color:rgba(160,185,255,.9);line-height:1.5">💡 Ensure good lighting for best results</div>
+    <div style="background:rgba(106,174,240,.08);border-radius:8px;padding:10px 14px;font-size:11.5px;color:rgba(170,208,245,.9);line-height:1.5">💡 Ensure good lighting for best results</div>
   </div>
 </div>
 
@@ -382,7 +382,7 @@ button{font-family:inherit;cursor:pointer}
 
   <div style="padding:14px 18px">
     <div style="display:flex;gap:10px">
-      <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc);font-size:14px;font-weight:600;border:1.5px solid rgba(75,112,255,.35)">← Back</button>
+      <button onclick="go('login')" style="flex:1;padding:13px;border-radius:12px;background:transparent;color:var(--acc-t);font-size:14px;font-weight:600;border:1.5px solid rgba(106,174,240,.35)">← Back</button>
       <button onclick="go('home')" class="bacc" style="flex:1">Skip →</button>
     </div>
   </div>
@@ -401,7 +401,7 @@ button{font-family:inherit;cursor:pointer}
 
   <div style="padding:4px 18px;background:var(--bg2);border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;padding-top:8px">
     <div style="display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt2)">Savings A/c: 12341234124870<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <button style="font-size:11.5px;color:var(--acc);background:none;border:none;font-weight:600">Manage A/c</button>
+    <button style="font-size:11.5px;color:var(--acc-t);background:none;border:none;font-weight:600">Manage A/c</button>
   </div>
 
   <div style="padding:20px 18px 6px">
@@ -409,7 +409,7 @@ button{font-family:inherit;cursor:pointer}
       <div style="font-size:28px;font-weight:800;letter-spacing:-.5px">View Balance</div>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="rgba(255,255,255,.4)" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="rgba(255,255,255,.4)" stroke-width="2"/><line x1="3" y1="3" x2="21" y2="21" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
-    <button style="font-size:12px;color:var(--acc);background:none;border:none;font-weight:500;text-decoration:underline;padding:0">View statement</button>
+    <button style="font-size:12px;color:var(--acc-t);background:none;border:none;font-weight:500;text-decoration:underline;padding:0">View statement</button>
   </div>
 
   <div style="padding:10px 18px">
@@ -554,7 +554,7 @@ button{font-family:inherit;cursor:pointer}
     <!-- Transaction summary -->
     <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between">
       <div><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Sending to</div><div style="font-size:13.5px;font-weight:600">Amit Kumar</div></div>
-      <div style="text-align:right"><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Amount</div><div id="pin-amt" style="font-size:14px;font-weight:700;color:var(--acc)">₹ —</div></div>
+      <div style="text-align:right"><div style="font-size:11px;color:var(--mu);margin-bottom:1px">Amount</div><div id="pin-amt" style="font-size:14px;font-weight:700;color:var(--acc-t)">₹ —</div></div>
     </div>
 
     <!-- PIN dots -->
@@ -598,9 +598,9 @@ button{font-family:inherit;cursor:pointer}
         <div style="flex:1">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
             <span id="pin-det-lbl" style="font-size:13px;font-weight:700;color:var(--txt)">Show your hand to begin</span>
-            <span id="pin-hold-lbl" style="font-size:10px;color:var(--acc)"></span>
+            <span id="pin-hold-lbl" style="font-size:10px;color:var(--acc-t)"></span>
           </div>
-          <div class="cbt"><div id="pin-hold" class="cbf" style="background:var(--acc)"></div></div>
+          <div class="cbt"><div id="pin-hold" class="cbf" style="background:var(--acc-t)"></div></div>
         </div>
       </div>
 
@@ -618,8 +618,8 @@ button{font-family:inherit;cursor:pointer}
       <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1.5s to confirm</div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
-      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(160,185,255,.9)">End-to-end encrypted · PIN never stored</span>
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(106,174,240,.08);border-radius:8px;border:1px solid rgba(106,174,240,.15)">
+      <span style="font-size:14px">🔒</span><span style="font-size:11px;color:rgba(170,208,245,.9)">End-to-end encrypted · PIN never stored</span>
     </div>
   </div>
 </div>
@@ -636,7 +636,7 @@ button{font-family:inherit;cursor:pointer}
       <div style="background:var(--bg3);border-radius:12px;border:1px solid var(--bd);padding:16px;margin-bottom:14px;text-align:left" id="suc-rec"></div>
       <div style="background:var(--gold-l);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:10px 14px;margin-bottom:22px;font-size:11.5px;color:#D97706;line-height:1.5;text-align:left">🤟 Authorised via sign language gesture — inclusive auth, equally secure</div>
       <button onclick="go('login')" class="bacc" style="margin-bottom:10px">Back to Home</button>
-      <button style="display:block;width:100%;padding:12px;border-radius:10px;background:transparent;border:none;color:var(--acc);font-size:13.5px;font-weight:600">Download Receipt</button>
+      <button style="display:block;width:100%;padding:12px;border-radius:10px;background:transparent;border:none;color:var(--acc-t);font-size:13.5px;font-weight:600">Download Receipt</button>
     </div>
   </div>
 </div>
@@ -979,7 +979,7 @@ function updTrLog(){
 function updPinLog(){
   const e=document.getElementById('pin-log');if(!e)return
   if(!pinLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span>';return}
-  e.innerHTML=pinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:2px"></div></div>`).join('')
+  e.innerHTML=pinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc-t);margin-top:2px"></div></div>`).join('')
 }
 function clrTrLog(){trLog=[];trAmt='';updTrLog();updTr()}
 
@@ -1098,7 +1098,7 @@ function pPin(k){
 function updDots(){
   document.getElementById('pin-dots').innerHTML=Array.from({length:6},(_,i)=>{
     const f=i<pin.length
-    return `<div style="width:16px;height:16px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
+    return `<div style="width:16px;height:16px;border-radius:50%;background:${f?'var(--acc-t)':'transparent'};border:2px solid ${f?'var(--acc-t)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(106,174,240,.5)':''}"></div>`
   }).join('')
 }
 
@@ -1124,13 +1124,13 @@ function pMpin(k){
 function updMpinDots(){
   document.getElementById('mpin-dots').innerHTML=Array.from({length:4},(_,i)=>{
     const f=i<mpin.length
-    return `<div style="width:22px;height:22px;border-radius:50%;background:${f?'var(--acc)':'transparent'};border:2px solid ${f?'var(--acc)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(75,112,255,.5)':''}"></div>`
+    return `<div style="width:22px;height:22px;border-radius:50%;background:${f?'var(--acc-t)':'transparent'};border:2px solid ${f?'var(--acc-t)':'var(--bd)'};transition:all .15s;${f?'box-shadow:0 0 8px rgba(106,174,240,.5)':''}"></div>`
   }).join('')
 }
 function updMpinLog(){
   const e=document.getElementById('mpin-log');if(!e)return
   if(!mpinLog.length){e.innerHTML='<span style="color:rgba(255,255,255,.25);font-size:11px;font-style:italic">Gestures appear here as you sign each digit</span>';return}
-  e.innerHTML=mpinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:2px"></div></div>`).join('')
+  e.innerHTML=mpinLog.map((d,i)=>`<div class="stk" style="animation-delay:${i*.04}s"><span style="font-size:24px">${SIGNS[d]}</span><div style="width:10px;height:10px;border-radius:50%;background:var(--acc-t);margin-top:2px"></div></div>`).join('')
 }
 function clrMpinLog(){mpinLog=[];mpin=[];updMpinLog();updMpinDots()}
 
