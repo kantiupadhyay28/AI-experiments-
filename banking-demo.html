@@ -877,13 +877,11 @@ async function startSignInput(ctx){
   const ok=await initMP()
   if(!ok){
     cam.style.display='none'
-    addLiveTag(v,'LIVE · Camera')
     return
   }
 
   // Full gesture AI active
   cam.style.display='none'
-  addLiveTag(v,'LIVE · MediaPipe AI 🤟')
   hideFallback(ctx)
   mpActive=true
 
@@ -903,14 +901,6 @@ async function startSignInput(ctx){
 
 function setCamNotice(cam,icon,msg){
   cam.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:0 24px"><span style="font-size:28px">${icon}</span><span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);line-height:1.5">${msg}</span></div>`
-}
-
-function addLiveTag(v,label){
-  v.parentElement.querySelectorAll('.live-tag').forEach(e=>e.remove())
-  const d=document.createElement('div');d.className='live-tag'
-  d.style.cssText='position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.65);border-radius:20px;padding:5px 12px;z-index:6'
-  d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulse 1.2s ease-in-out infinite"></div><span style="font-size:11px;font-weight:700;color:#fff">${label}</span>`
-  v.parentElement.appendChild(d)
 }
 
 async function runLoop(v,canvas){
