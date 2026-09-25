@@ -68,7 +68,7 @@ button{font-family:inherit;cursor:pointer}
 .vf canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 
 /* ── Camera (large — auth screen, full-width) ── */
-.vf-auth{background:var(--cam);position:relative;overflow:hidden;width:100%;aspect-ratio:4/3;max-height:55dvh}
+.vf-auth{background:var(--cam);position:relative;overflow:hidden;width:100%;aspect-ratio:3/4;max-height:72dvh}
 .vf-auth video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);z-index:1}
 .vf-auth canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 
@@ -258,7 +258,7 @@ button{font-family:inherit;cursor:pointer}
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="mpin-sgr"></div>
       </div>
 
-      <div style="font-size:10px;color:var(--mu);text-align:center;margin-bottom:12px">Show digit · hold 1.5s to confirm</div>
+      <div style="font-size:10px;color:var(--mu);text-align:center;margin-bottom:12px">Show digit · hold 1 s to confirm</div>
     </div>
 
     <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
@@ -302,7 +302,6 @@ button{font-family:inherit;cursor:pointer}
       <div style="font-size:15px;font-weight:700">Sign Language Login</div>
       <div style="font-size:11px;color:var(--mu)">Show your registered gesture</div>
     </div>
-    <span class="ai-badge">🤟 MediaPipe</span>
   </div>
 
   <!-- Registration status card -->
@@ -311,12 +310,12 @@ button{font-family:inherit;cursor:pointer}
     <div style="flex:1;min-width:0">
       <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#D97706;text-transform:uppercase;margin-bottom:2px">Sign ID · Riya Sharma</div>
       <div id="sa-card-t" style="font-size:13px;font-weight:700">Hand + secret sign</div>
-      <div id="sa-card-s" style="font-size:10px;color:var(--mu);margin-top:1px">Show your registered sign with the same hand · hold 1.5 s</div>
+      <div id="sa-card-s" style="font-size:10px;color:var(--mu);margin-top:1px">Show your registered sign with the same hand · hold briefly</div>
     </div>
   </div>
 
   <!-- Camera — full width, tall -->
-  <div class="vf-auth" style="margin-top:12px;max-height:62dvh">
+  <div class="vf-auth" style="margin-top:12px">
     <video id="sa-vid" autoplay muted playsinline></video>
     <canvas id="sa-canvas"></canvas>
 
@@ -411,7 +410,6 @@ button{font-family:inherit;cursor:pointer}
       <div style="font-size:15px;font-weight:700">Register Sign Login</div>
       <div style="font-size:11px;color:var(--mu)">Riya Sharma · saved on this device only</div>
     </div>
-    <span class="ai-badge">🤟 MediaPipe</span>
   </div>
 
   <ol style="margin:12px 18px 0;padding:12px 14px 12px 32px;background:var(--bg3);border:1px solid var(--bd);border-radius:10px;font-size:11.5px;color:var(--txt2);line-height:1.7">
@@ -420,7 +418,7 @@ button{font-family:inherit;cursor:pointer}
     <li>Hold the sign up and move your hand slowly until the bar fills.</li>
   </ol>
 
-  <div class="vf-auth" style="margin-top:12px;max-height:58dvh">
+  <div class="vf-auth" style="margin-top:12px">
     <video id="en-vid" autoplay muted playsinline></video>
     <canvas id="en-canvas"></canvas>
     <div id="en-cam" class="vfcam">
@@ -628,7 +626,7 @@ button{font-family:inherit;cursor:pointer}
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="tr-sgr"></div>
       </div>
 
-      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1.5s to confirm · open palm 🖐️ to delete last</div>
+      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1 s to confirm · open palm 🖐️ to delete last</div>
     </div>
 
     <button id="tr-btn" onclick="doTr()" style="display:block;width:100%;padding:15px;border-radius:12px;background:var(--bg3);color:var(--mu);font-size:15px;font-weight:700;border:1px solid var(--bd);cursor:default">Enter an amount</button>
@@ -708,7 +706,7 @@ button{font-family:inherit;cursor:pointer}
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px" id="pin-sgr"></div>
       </div>
 
-      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1.5s to confirm</div>
+      <div style="font-size:10px;color:var(--mu);text-align:center">Show digit · hold 1 s to confirm</div>
     </div>
 
     <div style="display:flex;align-items:center;gap:6px;justify-content:center;padding:12px;background:rgba(75,112,255,.08);border-radius:8px;border:1px solid rgba(75,112,255,.15)">
@@ -749,13 +747,13 @@ let mpin=[],mpinSign=false,mpinLog=[]
 let mpHands=null,camStream=null
 let mpActive=false,mpCtx=null // 'tr' | 'pin' | 'auth'
 let lastDigit=-1,holdStart=null,holdInterval=null
-const HOLD_TR=1500,HOLD_PIN=1500,HOLD_AUTH=1500
+const HOLD_TR=1000,HOLD_PIN=1000,HOLD_AUTH=800
 const PFX={auth:'sa',enroll:'en'}
 const pfxOf=c=>PFX[c]||c
 
 // ── Hand ID (per-customer hand geometry + secret sign) ──
 const CUST_ID='RS-4568',TPL_KEY='aark.signid.v1.'+CUST_ID
-const ENROLL_N=60,MAX_FAILS=3
+const ENROLL_N=40,MAX_FAILS=3
 // Bone and palm segments; each is divided by palm length (wrist→middle knuckle) so distance to camera cancels out
 const BONES=[[0,1],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8],[9,10],[10,11],[11,12],[13,14],[14,15],[15,16],[17,18],[18,19],[19,20],[0,5],[0,13],[0,17],[5,9],[9,13],[13,17]]
 let tplMem=null,saTpl=null,authScores=[],authHand=null,authFails=0,authPaused=false,pendingEnroll=false,enr=null
@@ -854,7 +852,7 @@ async function startSignInput(ctx){
 
   let stream
   try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}}})
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}})
   }catch(e){
     if(ctx==='auth'){
       const notice=document.getElementById('sa-iframe-notice')
@@ -1040,7 +1038,7 @@ function authDecide(digit){
   const t=saTpl
   const sc=authScores.slice().sort((a,b)=>a-b)
   const med=sc.length?sc[sc.length>>1]:Infinity
-  const ok=!!t&&digit===t.sign&&authHand===t.hand&&sc.length>=8&&med<=t.thr
+  const ok=!!t&&digit===t.sign&&authHand===t.hand&&sc.length>=5&&med<=t.thr
   authScores=[]
   if(ok){
     authFails=0
@@ -1247,7 +1245,7 @@ function initSA(){
   saTpl=loadTpl()
   document.getElementById('sa-rereg').style.display=saTpl?'block':'none'
   document.getElementById('sa-card-t').textContent=saTpl?`Hand + secret sign · ${handName(saTpl.hand)} hand`:'Not set up'
-  document.getElementById('sa-card-s').textContent=saTpl?'Show your registered sign with the same hand · hold 1.5 s':'Register once with your mPIN to use sign login'
+  document.getElementById('sa-card-s').textContent=saTpl?'Show your registered sign with the same hand · hold briefly':'Register once with your mPIN to use sign login'
   if(!saTpl){document.getElementById('sa-setup').style.display='flex';document.getElementById('sa-cam').style.display='none';return}
   if(authFails>=MAX_FAILS){showLocked();return}
   startSignInput('auth')
