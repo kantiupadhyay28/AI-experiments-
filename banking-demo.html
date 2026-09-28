@@ -310,7 +310,7 @@ button{font-family:inherit;cursor:pointer}
     <div style="flex:1;min-width:0">
       <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#D97706;text-transform:uppercase;margin-bottom:2px">Sign ID · Riya Sharma</div>
       <div id="sa-card-t" style="font-size:13px;font-weight:700">Hand + secret sign</div>
-      <div id="sa-card-s" style="font-size:10px;color:var(--mu);margin-top:1px">Show your registered sign with the same hand · hold briefly</div>
+      <div id="sa-card-s" style="font-size:10px;color:var(--mu);margin-top:1px">Show your registered sign with the same hand</div>
     </div>
   </div>
 
@@ -747,16 +747,17 @@ let mpin=[],mpinSign=false,mpinLog=[]
 let mpHands=null,camStream=null
 let mpActive=false,mpCtx=null // 'tr' | 'pin' | 'auth'
 let lastDigit=-1,holdStart=null,holdInterval=null
-const HOLD_TR=1000,HOLD_PIN=1000,HOLD_AUTH=800
+const HOLD_TR=1000,HOLD_PIN=1000
 const PFX={auth:'sa',enroll:'en'}
 const pfxOf=c=>PFX[c]||c
 
 // ── Hand ID (per-customer hand geometry + secret sign) ──
 const CUST_ID='RS-4568',TPL_KEY='aark.signid.v1.'+CUST_ID
 const ENROLL_N=40,MAX_FAILS=3
+const AUTH_WIN=1200,AUTH_MIN=4,AUTH_ATTEMPT=1500
 // Bone and palm segments; each is divided by palm length (wrist→middle knuckle) so distance to camera cancels out
 const BONES=[[0,1],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8],[9,10],[10,11],[11,12],[13,14],[14,15],[15,16],[17,18],[18,19],[19,20],[0,5],[0,13],[0,17],[5,9],[9,13],[13,17]]
-let tplMem=null,saTpl=null,authScores=[],authHand=null,authFails=0,authPaused=false,pendingEnroll=false,enr=null
+let tplMem=null,saTpl=null,authBuf=[],authStart=null,authFails=0,authPaused=false,pendingEnroll=false,enr=null
 
 function loadTpl(){
   try{const t=JSON.parse(localStorage.getItem(TPL_KEY)||'null');if(t&&t.v===1)return t}catch(e){}
@@ -932,7 +933,7 @@ function onHandResults(res){
 
   if(!res.multiHandLandmarks||!res.multiHandLandmarks.length){
     if(mpCtx==='enroll'){enrollFrame(-1,null,null);return}
-    if(mpCtx==='auth')setMatchUI(null)
+    if(mpCtx==='auth'){authReset();updateDetEmoji(-1);return}
     onNoHand();return
   }
 
@@ -942,19 +943,14 @@ function onHandResults(res){
   const digit=classifyASL(lm)
   const hand=res.multiHandedness&&res.multiHandedness[0]&&res.multiHandedness[0].label
   if(mpCtx==='enroll'){enrollFrame(digit,handFeatures(res),hand);return}
-  if(mpCtx==='auth'&&authPaused)return
+  if(mpCtx==='auth'){authFrame(digit,hand,res);return}
   if(digit===-1){onNoHand();return}
 
   updateDetEmoji(digit)
 
   if(digit!==lastDigit){
-    lastDigit=digit;holdStart=Date.now();authScores=[]
+    lastDigit=digit;holdStart=Date.now()
     setHoldUI(0)
-  }
-  if(mpCtx==='auth'&&saTpl){
-    const f=handFeatures(res)
-    authHand=hand
-    if(f){const s=matchScore(f,saTpl);authScores.push(s);setMatchUI(s)}
   }
 }
 
@@ -967,7 +963,7 @@ function onNoHand(){
 
 function tickHold(){
   if(!holdStart||lastDigit===-1)return
-  const holdMs=mpCtx==='auth'?HOLD_AUTH:(mpCtx==='pin'||mpCtx==='mpin'?HOLD_PIN:HOLD_TR)
+  const holdMs=mpCtx==='pin'||mpCtx==='mpin'?HOLD_PIN:HOLD_TR
   const prog=Math.min((Date.now()-holdStart)/holdMs,1)
   setHoldUI(prog)
   if(prog>=1){
@@ -1021,7 +1017,6 @@ function classifyASL(lm){
 
 // ── Accept confirmed gesture ──────────────────
 function acceptDigit(digit){
-  if(mpCtx==='auth'){authDecide(digit);return}
   if(mpCtx==='tr'){
     if(digit===5&&trAmt.length>0){trAmt=trAmt.slice(0,-1)}
     else if(trAmt.length<8){trAmt+=String(digit);trLog.push(digit);updTrLog()}
@@ -1034,26 +1029,55 @@ function acceptDigit(digit){
   flashConfirm()
 }
 
-function authDecide(digit){
-  const t=saTpl
-  const sc=authScores.slice().sort((a,b)=>a-b)
-  const med=sc.length?sc[sc.length>>1]:Infinity
-  const ok=!!t&&digit===t.sign&&authHand===t.hand&&sc.length>=5&&med<=t.thr
-  authScores=[]
-  if(ok){
-    authFails=0
-    const done=document.getElementById('sa-done')
-    if(done)done.style.display='flex'
-    timers.push(setTimeout(()=>go('home'),900))
-    return
+// Continuous check: logs in the moment enough recent frames show the registered sign,
+// made with the registered hand, at a passing geometry score. Single misread frames are tolerated.
+function authFrame(digit,hand,res){
+  if(authPaused||!saTpl)return
+  const now=performance.now()
+  authBuf=authBuf.filter(e=>now-e.t<AUTH_WIN)
+  updateDetEmoji(digit)
+  if(digit!==-1){
+    const f=handFeatures(res)
+    if(f){
+      const s=matchScore(f,saTpl)
+      authBuf.push({t:now,digit,hand,s})
+      setMatchUI(s)
+    }
+    if(authStart==null)authStart=now
   }
+  const m=authBuf.filter(e=>e.digit===saTpl.sign&&e.hand===saTpl.hand).map(e=>e.s).sort((a,b)=>a-b)
+  if(m.length>=AUTH_MIN&&m[m.length>>1]<=saTpl.thr){authSuccess();return}
+  if(authStart==null)return
+  const prog=Math.min((now-authStart)/AUTH_ATTEMPT,1)
+  const bar=document.getElementById('sa-hold');if(bar)bar.style.width=(prog*100)+'%'
+  const lbl=document.getElementById('sa-hold-lbl');if(lbl)lbl.textContent='Verifying…'
+  if(prog>=1){
+    const all=authBuf.map(e=>e.s).sort((a,b)=>a-b)
+    authFail(m.length?m[m.length>>1]:(all.length?all[all.length>>1]:Infinity))
+  }
+}
+function authReset(){
+  authBuf=[];authStart=null
+  setMatchUI(null)
+  const bar=document.getElementById('sa-hold');if(bar)bar.style.width='0'
+  const lbl=document.getElementById('sa-hold-lbl');if(lbl)lbl.textContent=''
+}
+function authSuccess(){
+  authFails=0
+  stopAllSign()
+  const done=document.getElementById('sa-done')
+  if(done)done.style.display='flex'
+  timers.push(setTimeout(()=>go('home'),600))
+}
+function authFail(med){
+  authReset()
   authFails++
   const left=MAX_FAILS-authFails
-  document.getElementById('sa-rej-d').textContent=isFinite(med)&&t?`match score ${med.toFixed(2)} · limit ${t.thr.toFixed(2)}`:''
+  document.getElementById('sa-rej-d').textContent=isFinite(med)?`match score ${med.toFixed(2)} · limit ${saTpl.thr.toFixed(2)}`:''
   if(left<=0){showLocked();return}
   showReject('Sign or hand not recognised',`${left} attempt${left===1?'':'s'} left`,false)
   authPaused=true
-  timers.push(setTimeout(()=>{hideEl('sa-reject');authPaused=false;lastDigit=-1;holdStart=null;setHoldUI(0)},1800))
+  timers.push(setTimeout(()=>{hideEl('sa-reject');authPaused=false},1800))
 }
 function showReject(title,sub,withBtn){
   document.getElementById('sa-rej-t').textContent=title
@@ -1159,7 +1183,7 @@ function updateDetEmoji(digit){
     if(lblEl)lblEl.textContent='Show your hand to begin'
   }else{
     if(emojiEl)emojiEl.textContent=SIGNS[digit]
-    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Hold to verify ${SIGNS[digit]}`:`Digit ${digit} — ${SIGNS[digit]}`
+    if(lblEl)lblEl.textContent=mpCtx==='auth'?`Reading ${SIGNS[digit]}…`:`Digit ${digit} — ${SIGNS[digit]}`
   }
 }
 
@@ -1241,11 +1265,11 @@ function initFace(){
 }
 function initSA(){
   ;['sa-done','sa-live-overlay','sa-iframe-notice','sa-reject','sa-setup','sa-match'].forEach(hideEl)
-  authScores=[];authPaused=false;authHand=null
+  authBuf=[];authStart=null;authPaused=false
   saTpl=loadTpl()
   document.getElementById('sa-rereg').style.display=saTpl?'block':'none'
   document.getElementById('sa-card-t').textContent=saTpl?`Hand + secret sign · ${handName(saTpl.hand)} hand`:'Not set up'
-  document.getElementById('sa-card-s').textContent=saTpl?'Show your registered sign with the same hand · hold briefly':'Register once with your mPIN to use sign login'
+  document.getElementById('sa-card-s').textContent=saTpl?'Show your registered sign with the same hand':'Register once with your mPIN to use sign login'
   if(!saTpl){document.getElementById('sa-setup').style.display='flex';document.getElementById('sa-cam').style.display='none';return}
   if(authFails>=MAX_FAILS){showLocked();return}
   startSignInput('auth')
