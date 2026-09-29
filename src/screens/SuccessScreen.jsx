@@ -45,7 +45,7 @@ export default function SuccessScreen({ onDone, transferData }) {
           padding: '16px 18px', marginBottom: 28, textAlign: 'left',
         }}>
           {[
-            ['From', 'Riya Sharma · SBI •••• 4829'],
+            ['From', 'Kanti Upadhyay · SBI •••• 4829'],
             ['To', 'Amit Kumar · HDFC •••• 9201'],
             ['Amount', formatted],
             ['Date', `${dateStr}, ${timeStr}`],

@@ -13,7 +13,7 @@ export default function HomeScreen({ onSend }) {
       {/* Header */}
       <div style={{ ...ph, marginBottom: 18 }}>
         <div style={{ fontSize: 12, color: B.muted }}>Good morning</div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: B.text, letterSpacing: '-0.4px' }}>Riya Sharma</div>
+        <div style={{ fontSize: 22, fontWeight: 800, color: B.text, letterSpacing: '-0.4px' }}>Kanti Upadhyay</div>
       </div>
 
       {/* Balance card */}

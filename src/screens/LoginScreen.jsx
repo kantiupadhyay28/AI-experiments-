@@ -26,7 +26,7 @@ export default function LoginScreen({ onPasskey, onFace, onSign }) {
 
       <div style={{ ...ph, marginBottom: 28 }}>
         <div style={{ fontSize: 26, fontWeight: 800, color: B.text, lineHeight: 1.2, marginBottom: 5 }}>
-          Welcome back,<br />Riya 👋
+          Welcome back,<br />Kanti 👋
         </div>
         <div style={{ fontSize: 13, color: B.muted }}>Choose how you'd like to sign in</div>
       </div>
